@@ -19,18 +19,18 @@ namespace ECommerce.Core.Services
             this.productRepo = productRepo;
         }
 
-        public async Task<Product> GetProduct(int productID)
+        public async Task<Product> GetProduct(string productID)
         {
            return await productRepo.FindByIdAsync(productID);
         }
 
-        public async Task<bool> IsAvilableInStock(int ProductID , int quantity)
+        public async Task<bool> IsAvilableInStock(string ProductID , int quantity)
         {
             return  (await productRepo.FindByIdAsync(ProductID)).AvailableInStock >= quantity;
 
         }
 
-        public async Task<bool> ProductExist(int productID)
+        public async Task<bool> ProductExist(string productID)
         {
             return (await productRepo.FindByIdAsync(productID)) != null;
         }

@@ -11,8 +11,8 @@ namespace ECommerce.Core.Domain.ReposConstrucs
     {
        public Task<Cart>GetCurrnetCart(string userID);
        public void AddProductinCart(ProductsInCart product);
-       public void RemoveProductFromCart(int ProductId);
-       public Task<ProductsInCart> GetProductsInCart(int ProductId);
+       public void RemoveProductFromCart(string ProductId);
+       public Task<ProductsInCart> GetProductsInCart(string ProductId);
 
     }
 }

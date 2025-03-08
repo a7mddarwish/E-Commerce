@@ -34,14 +34,9 @@ namespace ECommerce.Infrastructure.Repos
             carts.Remove(entity);
         }       
 
-        public async Task<Cart> GetByIdAsync(int id)
+        public async Task<Cart> GetByIdAsync(string id)
         {
             return await carts.FindAsync(id);
-        }
-
-        public async Task<IReadOnlyList<Cart>> GetAsync(Expression<Func<Cart, bool>> predicate)
-        {
-            return await carts.Where(predicate).ToListAsync();
         }
 
         public void Update(Cart entity)
@@ -51,15 +46,10 @@ namespace ECommerce.Infrastructure.Repos
             
         }
 
-        public Task<Cart> FindByIdAsync(int id)
+        public Task<Cart> FindByIdAsync(string id)
         {
 
             return carts.Include(c => c.ProductsInCarts).FirstOrDefaultAsync(c => c.Id == id);
-        }
-
-        public async Task<IEnumerable<Cart>> GetAllAsync()
-        {
-            return await carts.Include(c => c.ProductsInCarts).ToListAsync();
         }
 
         public async Task<IEnumerable<Cart>> FindAsync(Expression<Func<Cart, bool>> predicate)
@@ -70,17 +60,6 @@ namespace ECommerce.Infrastructure.Repos
         public Task<int> SaveChangesAsync()
         {
             return context.SaveChangesAsync();
-        }
-
-        public void AddRange(IEnumerable<Cart> entities)
-        {
-            carts.AddRange();
-        }
-
-        public void DeleteRange(IEnumerable<Cart> entities)
-        {
-            carts.RemoveRange(entities);
-
         }
 
         public async Task<Cart> GetCurrnetCart(string userid)
@@ -96,13 +75,13 @@ namespace ECommerce.Infrastructure.Repos
             context.ProductsInCart.Add(product);
         } 
         
-        public void RemoveProductFromCart(int productid)
+        public void RemoveProductFromCart(string productid)
         {
           
             context.ProductsInCart.Remove(context.ProductsInCart.Where(p => p.ProductId == productid).First());
         }
 
-        public async Task<ProductsInCart> GetProductsInCart(int ProductId)
+        public async Task<ProductsInCart> GetProductsInCart(string ProductId)
         {
             return await context.ProductsInCart.FirstOrDefaultAsync(p =>  p.ProductId == ProductId);
         }

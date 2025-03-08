@@ -12,9 +12,8 @@ namespace ECommerce.Core.ServicesConstracts
     {
 
 
-        //  public Task<int> NewCart(Cart cart);
         public Task<bool> AddToCart(AddProductCartDTO prodCartDTO , string userid);
-        //  public Task<bool> RemoveProductFromCart(int cartId, int productId);
-        public Task<short> ProductInuserCart(string userID, int ProductId);
+        public Task<bool> RemoveProductFromCart(string userID, string productId);
+        public Task<short> ProductInuserCart(string userID,string productId);
     }
 }

@@ -2,6 +2,7 @@
 using ECommerce.Core.ServicesConstracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ECommerce.UI.Controllers
 {
@@ -24,6 +25,7 @@ namespace ECommerce.UI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddCartProduct(AddProductCartDTO prodCartDTO)
         {
             string userId = User.FindFirst("UserID").Value;
@@ -48,6 +50,27 @@ namespace ECommerce.UI.Controllers
 
 
             return BadRequest(new {message = "somthing went wrong while adding product into cart."});
+        }
+
+
+        [HttpDelete]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> RemoveFromCart(string productID)
+        {
+            if(string.IsNullOrEmpty(productID))
+                return BadRequest(new {message = "Enter valied product ID"});
+
+            string? userID = User.FindFirst("UserID")?.Value;
+            if (string.IsNullOrEmpty(userID))
+                return Unauthorized(new { message = "User Not Found." });
+
+            return (await cartServ.RemoveProductFromCart(userID, productID)) ? Ok("deleted succesfully") : StatusCode(500, new { message = "Internal Server error" });
+
+
         }
 
     }

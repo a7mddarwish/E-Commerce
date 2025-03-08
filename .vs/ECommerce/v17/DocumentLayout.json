@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "D:\\Programming\\ECommerce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|d:\\programming\\ecommerce\\ecommerce.ui\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|solutionrelative:ecommerce.ui\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\services\\wishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\services\\wishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|d:\\programming\\ecommerce\\ecommerce.ui\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|solutionrelative:ecommerce.ui\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4D36B539-A6A7-4802-9346-23FB2A5BE2F9}|ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj|d:\\programming\\ecommerce\\ecommerce.infrastructure\\repos\\wishlistrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D36B539-A6A7-4802-9346-23FB2A5BE2F9}|ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj|solutionrelative:ecommerce.infrastructure\\repos\\wishlistrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|d:\\programming\\ecommerce\\ecommerce.ui\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|solutionrelative:ecommerce.ui\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\domain\\reposconstrucs\\iwishlistrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\domain\\reposconstrucs\\iwishlistrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|d:\\programming\\ecommerce\\ecommerce.ui\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|solutionrelative:ecommerce.ui\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\servicesconstracts\\iwishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\servicesconstracts\\iwishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,58 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CategoriesController.cs",
-              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\CategoriesController.cs",
-              "RelativeDocumentMoniker": "ECommerce.UI\\Controllers\\CategoriesController.cs",
-              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\CategoriesController.cs",
-              "RelativeToolTip": "ECommerce.UI\\Controllers\\CategoriesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T14:47:26.275Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "CartController.cs",
-              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\CartController.cs",
-              "RelativeDocumentMoniker": "ECommerce.UI\\Controllers\\CartController.cs",
-              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\CartController.cs",
-              "RelativeToolTip": "ECommerce.UI\\Controllers\\CartController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
+              "Title": "IWishListRepo.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\Domain\\ReposConstrucs\\IWishListRepo.cs",
+              "RelativeDocumentMoniker": "ECommerce.Core\\Domain\\ReposConstrucs\\IWishListRepo.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\Domain\\ReposConstrucs\\IWishListRepo.cs",
+              "RelativeToolTip": "ECommerce.Core\\Domain\\ReposConstrucs\\IWishListRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T14:47:13.661Z",
+              "WhenOpened": "2025-03-08T20:09:32.381Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "ECommerce.UI\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "ECommerce.UI\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAANIAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "WishListRepo.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Infrastructure\\Repos\\WishListRepo.cs",
+              "RelativeDocumentMoniker": "ECommerce.Infrastructure\\Repos\\WishListRepo.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Infrastructure\\Repos\\WishListRepo.cs",
+              "RelativeToolTip": "ECommerce.Infrastructure\\Repos\\WishListRepo.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T14:46:56.219Z",
+              "WhenOpened": "2025-03-08T20:08:34.485Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "ECommerce.UI\\Controllers\\ProductController.cs",
-              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "ECommerce.UI\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAGgAAAAAAAAAAAAAAA==",
+              "Title": "WishListService.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\Services\\WishListService.cs",
+              "RelativeDocumentMoniker": "ECommerce.Core\\Services\\WishListService.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\Services\\WishListService.cs",
+              "RelativeToolTip": "ECommerce.Core\\Services\\WishListService.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAowBoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T11:47:33.767Z",
+              "WhenOpened": "2025-03-08T20:01:14.264Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IWishListService.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\ServicesConstracts\\IWishListService.cs",
+              "RelativeDocumentMoniker": "ECommerce.Core\\ServicesConstracts\\IWishListService.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\ServicesConstracts\\IWishListService.cs",
+              "RelativeToolTip": "ECommerce.Core\\ServicesConstracts\\IWishListService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T19:57:01.357Z",
               "EditorCaption": ""
             }
           ]

@@ -9,18 +9,18 @@ namespace ECommerce.Core.ServicesConstracts
 {
     public interface IImageServices
     {
-        public Task<string> UploadImageAsync(IFormFile file,int productid, bool IsPrimary = false);
+        public Task<string> UploadImageAsync(IFormFile file,string productid, bool IsPrimary = false);
 
         // Delete from cloud
-        public Task<bool> DeleteFromCloudByIDAsync(int imageId);
+        public Task<bool> DeleteFromCloudByIDAsync(string imageId);
         public Task<bool> DeleteFromCloudByurlAsync(string Imageurl);
 
         // Delete form DB
-        public Task<bool> DeleteFromDBByIDAsync(int imageId);
+        public Task<bool> DeleteFromDBByIDAsync(string imageId);
         public Task<bool> DeleteFromDBByurlAsync(string Imageurl);
 
 
 
-        public Task<int> GetIDByurl(string Imageurl);
+        public Task<string> GetIDByurl(string Imageurl);
     }
 }

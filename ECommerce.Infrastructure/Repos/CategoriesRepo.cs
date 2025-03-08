@@ -21,19 +21,9 @@ namespace ECommerce.Infrastructure.Repos
             categories.Add(entity);
         }
 
-        public void AddRange(IEnumerable<Category> entities)
-        {
-            categories.AddRange(entities);
-        }
-
         public void Delete(Category entity)
         {
             categories.Remove(entity);
-        }
-
-        public void DeleteRange(IEnumerable<Category> entities)
-        {
-            categories.RemoveRange(entities);
         }
 
         public async Task<IEnumerable<Category>> FindAsync(Expression<Func<Category, bool>> predicate)

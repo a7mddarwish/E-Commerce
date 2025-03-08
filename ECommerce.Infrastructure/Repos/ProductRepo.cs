@@ -60,7 +60,7 @@ namespace ECommerce.Infrastructure.Repos
             return await products.AsNoTracking().Include(p => p.Images).ToListAsync();
         }
 
-        public async Task<Product> FindByIdAsync(int id)
+        public async Task<Product> FindByIdAsync(string id)
         {
             return await products.FirstOrDefaultAsync(products => products.Id == id);
         }
@@ -81,7 +81,7 @@ namespace ECommerce.Infrastructure.Repos
            return await products.Where(p => p.Category.Name.ToLower() == catName.ToLower()).ToListAsync();
         }
 
-        public async Task<int> AddwithID(Product entity)
+        public async Task<string> AddwithID(Product entity)
         {
             products.Add(entity);
             await context.SaveChangesAsync();

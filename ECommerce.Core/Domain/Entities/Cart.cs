@@ -6,8 +6,9 @@ namespace ECommerce.Core.Domain.Entities;
 
 public partial class Cart
 {
- 
-    public int Id { get; set; }
+    [MaxLength(36)]
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+
 
     public string UserId { get; set; } = null!;
 

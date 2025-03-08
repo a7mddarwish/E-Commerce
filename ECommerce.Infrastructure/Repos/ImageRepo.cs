@@ -47,7 +47,7 @@ namespace ECommerce.Infrastructure.Repos
             images.Remove(images.FirstOrDefault(I => I.ImageUrl == Imageurl));
         } 
 
-        public void DeleteImageByid(int id)
+        public void DeleteImageByid(string id)
         {
             images.Remove(images.FirstOrDefault(I => I.Id == id));
         }
@@ -65,12 +65,8 @@ namespace ECommerce.Infrastructure.Repos
             return await images.Where(predicate).ToListAsync();
         }
 
-        public async Task<IEnumerable<Image>> GetAllAsync()
-        {
-            return await images.ToListAsync();
-        }
-
-        public async Task<Image> FindByIdAsync(int id)
+      
+        public async Task<Image> FindByIdAsync(string id)
         {
             return await images.FirstOrDefaultAsync(i => i.Id == id);
         }

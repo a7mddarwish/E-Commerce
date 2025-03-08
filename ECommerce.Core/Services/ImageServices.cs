@@ -19,7 +19,7 @@ namespace ECommerce.Core.Services
             this.cloud = cloud;
         }
       
-        public async Task<string> UploadImageAsync(IFormFile file , int productid ,bool IsPrimary = false)
+        public async Task<string> UploadImageAsync(IFormFile file , string productid ,bool IsPrimary = false)
         {
 
             // Save to Cloud
@@ -43,7 +43,7 @@ namespace ECommerce.Core.Services
 
 
         //Delete form cloud
-        public async Task<bool> DeleteFromCloudByIDAsync(int imageId)
+        public async Task<bool> DeleteFromCloudByIDAsync(string imageId)
         {
             string url = (await repo.FindByIdAsync(imageId)).ImageUrl;
 
@@ -59,7 +59,7 @@ namespace ECommerce.Core.Services
 
 
         // Delete from DB
-        public async Task<bool> DeleteFromDBByIDAsync(int imageId)
+        public async Task<bool> DeleteFromDBByIDAsync(string imageId)
         {
             repo.DeleteImageByid(imageId);
             return await repo.SaveChangesAsync() > 0;
@@ -72,7 +72,7 @@ namespace ECommerce.Core.Services
             return await repo.SaveChangesAsync() > 0;
         }
 
-        public async Task<int> GetIDByurl(string Imageurl)
+        public async Task<string> GetIDByurl(string Imageurl)
         {
             return (await repo.FindByurlAsync(Imageurl)).Id;
         }

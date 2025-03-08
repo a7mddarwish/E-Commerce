@@ -6,7 +6,7 @@ namespace ECommerce.Core.DTOs
     {
         
 
-        public int productId { get; set; }
+        public string productId { get; set; }
         public short quantity { get; set; }
     }
 }

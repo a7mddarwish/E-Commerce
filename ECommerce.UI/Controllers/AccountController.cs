@@ -23,7 +23,7 @@ namespace ECommerce.UI.Controllers
         private readonly EmailSender emailsender;
         private readonly IMapper mapper;
 
-        public AccountController(UserManager<AppUser> usermanager, IConfiguration config, EmailSender emailsender , IMapper mapper)
+        public AccountController(UserManager<AppUser> usermanager, IConfiguration config, EmailSender emailsender, IMapper mapper)
         {
             this.usermanager = usermanager;
             this.config = config;
@@ -60,7 +60,7 @@ namespace ECommerce.UI.Controllers
 
             }
 
-           await usermanager.AddToRoleAsync(user, "Customer");
+            await usermanager.AddToRoleAsync(user, "Customer");
 
             string token = await usermanager.GenerateEmailConfirmationTokenAsync(user);
 
@@ -71,7 +71,7 @@ namespace ECommerce.UI.Controllers
             await emailsender.SendConfirmationEmail(user.Email, user, token, confirmationLink);
 
 
-            return Ok(new {message = "Please Check email now"});
+            return Ok(new { message = "Please Check email now" });
         }
 
         [HttpPost("Login")]
@@ -132,7 +132,6 @@ namespace ECommerce.UI.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
 
 
         [HttpGet("ConfirmEmail")]
@@ -199,9 +198,9 @@ namespace ECommerce.UI.Controllers
         {
             var userId = User.FindFirstValue("UserID");
 
-            if (string.IsNullOrEmpty(userId))            
+            if (string.IsNullOrEmpty(userId))
                 return Unauthorized(new { error = "UserID claim not found" });
-            
+
             var user = await usermanager.FindByIdAsync(userId);
 
             if (user == null)
@@ -210,5 +209,105 @@ namespace ECommerce.UI.Controllers
             return Ok(mapper.Map<userDTO>(user));
         }
 
+
+        [Authorize]
+        [HttpPut("EditUerProfile")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> EditUserProfileinfo(ChangeUserInfoDTO userinfodto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { message = "Enter valied info" });
+
+            AppUser user = await usermanager.FindByIdAsync(User.FindFirst("UserID").Value);
+
+            if (!await usermanager.CheckPasswordAsync(user , userinfodto.passwordToConfirm))
+                return BadRequest(new { message = "Password was wrong , Please check again or reset the password" });
+
+
+            if (user == null)            
+                return StatusCode(500 , new {message = "Internal server error." });
+            
+
+            user.FullName = userinfodto.FullName;
+            user.Address = userinfodto.Address;
+
+            await usermanager.UpdateAsync(user);
+
+            return Ok(mapper.Map<userDTO>(user));
+
+        }
+
+
+        [Authorize]
+        [HttpPatch("ChangeEmail")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ChangeEmail(string email , string passwordToConfirm)
+        {
+            string userId = User.FindFirst("UserID")?.Value;
+            if (string.IsNullOrEmpty(userId)) 
+               return Unauthorized(new {message = "User Not found"});
+
+            AppUser user = await usermanager.FindByIdAsync(userId);
+
+            if (user == null)
+                return NotFound(new {message = "User dosenot exist"});
+
+
+            if (!await usermanager.CheckPasswordAsync(user, passwordToConfirm))
+                return BadRequest(new { message = "Password was wrong , Please check again or reset the password" });
+
+            user.Email = email;
+            user.NormalizedEmail = email.ToUpper();
+
+            user.UserName = email;
+            user.NormalizedUserName= email.ToUpper();
+
+
+
+            await usermanager.UpdateNormalizedEmailAsync(user);
+            await usermanager.UpdateNormalizedUserNameAsync(user);
+
+
+            return Ok(mapper.Map<userDTO>(user));
+        }
+
+
+        [Authorize]
+        [HttpPatch("ChangePassword")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ChangePassword(string oldpass , string NewPass , string confirmednewpass)
+        {
+            if (string.IsNullOrEmpty(oldpass) || string.IsNullOrEmpty(NewPass) || string.IsNullOrEmpty(confirmednewpass))
+                return BadRequest(new {message = "All filds is required"});
+
+            if (NewPass != confirmednewpass)
+                return BadRequest(new {message = "Enter same password in the two filds"});
+
+            string userid = User.FindFirst("UserID")?.Value;
+            if (string.IsNullOrEmpty(userid))
+                return Unauthorized(new {message = "User not found"});
+
+            AppUser user = await usermanager.FindByIdAsync(userid);
+
+            if (user == null)
+                return NotFound(new {message = "User dosenot exist!"});
+
+            IdentityResult result = await usermanager.ChangePasswordAsync(user, oldpass, NewPass);
+
+            if (!result.Succeeded)
+                return StatusCode(500, new { message = "internal server Error" });
+
+
+            return Ok("Password changed successfully");
+            
+        }
     }
 }

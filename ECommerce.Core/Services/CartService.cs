@@ -1,4 +1,5 @@
-﻿using ECommerce.Core.Domain.Entities;
+﻿using AutoMapper;
+using ECommerce.Core.Domain.Entities;
 using ECommerce.Core.Domain.ReposConstrucs;
 using ECommerce.Core.DTOs;
 using ECommerce.Core.ServicesConstracts;
@@ -14,11 +15,13 @@ namespace ECommerce.Core.Services
     {
         private readonly ICartRepo cartRepo;
         private readonly IStockService stock;
+        private readonly IMapper mapper;
 
-        public CartService(ICartRepo CartRepo , IStockService stock)
+        public CartService(ICartRepo CartRepo , IStockService stock , IMapper mapper)
         {
             cartRepo = CartRepo;
             this.stock = stock;
+            this.mapper = mapper;
         }
 
         public async Task<bool>AddToCart(AddProductCartDTO prodCartDTO , string userId)
@@ -82,7 +85,7 @@ namespace ECommerce.Core.Services
 
         }
 
-        public async Task<short> ProductInuserCart(string userID , int ProductId)
+        public async Task<short> ProductInuserCart(string userID , string ProductId)
         {
             Cart crt = await cartRepo.GetCurrnetCart(userID);
             if (crt == null) return 0;
@@ -93,8 +96,18 @@ namespace ECommerce.Core.Services
             return 0;
         }
 
-        
-       
+        public async Task<bool> RemoveProductFromCart(string userID, string ProductId)
+        {
+            Cart cart = await cartRepo.GetCurrnetCart(userID);
+            if (cart == null) return false;
 
+            ProductsInCart prod = cart.ProductsInCarts.FirstOrDefault(p => p.ProductId == ProductId);
+            
+            if(prod == null) return false;
+
+            cartRepo.RemoveProductFromCart(ProductId);
+
+            return await cartRepo.SaveChangesAsync() > 1;
+        }
     }
 }
