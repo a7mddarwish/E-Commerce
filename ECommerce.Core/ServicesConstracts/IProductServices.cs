@@ -8,5 +8,7 @@ namespace ECommerce.Core.ServicesConstracts
         public Task<ProductDTO> AddnewProduct(NewProdutDTO productdto);
         public Task<List<ProductDTO>> GetByCategoryID(int catId);
         public Task<List<ProductDTO>> ExploreProducts();
+        public Task<ProductDTO> Find(Guid ProductID);
+        public Task<List<ProductDTO>> GetByCategoryname(string id);
     }
 }

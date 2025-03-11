@@ -23,6 +23,7 @@ namespace ECommerce.Infrastructure
             service.RegEmailSender();
             service.RegCartRepo();
             service.RegWishListRepo();
+            service.RegReveiwsRepo();
 
 
             return service;
@@ -85,6 +86,12 @@ namespace ECommerce.Infrastructure
         private static IServiceCollection RegWishListRepo(this IServiceCollection services)
         {
             services.AddScoped<IWishListRepo, WishListRepo>();
+            return services;
+        }
+
+        private static IServiceCollection RegReveiwsRepo(this IServiceCollection services)
+        {
+            services.AddScoped<IReviewsRepo, ReviewsRepo>();
             return services;
         }
 

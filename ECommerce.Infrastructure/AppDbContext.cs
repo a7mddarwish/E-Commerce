@@ -32,6 +32,7 @@ public partial class AppDbContext : IdentityDbContext<AppUser , AppRoles , Guid>
     public virtual DbSet<ProductsInWishList> ProductsInWishLists { get; set; }
 
     public virtual DbSet<WishList> WishLists { get; set; }
+    public virtual DbSet<Review> Reviews { get; set; }
 
 
 
@@ -41,9 +42,11 @@ public partial class AppDbContext : IdentityDbContext<AppUser , AppRoles , Guid>
         => optionsBuilder.UseSqlServer("Server=.;Database=ECommerce;User Id=sa;password=sa123456;TrustServerCertificate=True");
 
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
+
     }
+
 
 }

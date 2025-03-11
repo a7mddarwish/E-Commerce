@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250308121440_change ids from int to string")]
-    partial class changeidsfrominttostring
+    [Migration("20250309231601_AddReviews")]
+    partial class AddReviews
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -172,9 +172,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .HasMaxLength(36)
                         .HasColumnType("nvarchar(36)");
 
-                    b.Property<short>("Quantity")
-                        .HasColumnType("smallint");
-
                     b.Property<string>("WishListId")
                         .IsRequired()
                         .HasMaxLength(36)
@@ -187,6 +184,33 @@ namespace ECommerce.Infrastructure.Migrations
                     b.HasIndex("WishListId");
 
                     b.ToTable("ProductsInWishLists");
+                });
+
+            modelBuilder.Entity("ECommerce.Core.Domain.Entities.Review", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(36)");
+
+                    b.Property<byte>("Stars")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("ECommerce.Core.Domain.Entities.WishList", b =>
@@ -469,6 +493,17 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Navigation("WishList");
                 });
 
+            modelBuilder.Entity("ECommerce.Core.Domain.Entities.Review", b =>
+                {
+                    b.HasOne("ECommerce.Core.Domain.Entities.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("ECommerce.Core.Domain.IdentityEntities.AppRoles", null)
@@ -537,6 +572,8 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Navigation("ProductsInCarts");
 
                     b.Navigation("ProductsInWishLists");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("ECommerce.Core.Domain.Entities.WishList", b =>

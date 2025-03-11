@@ -5,7 +5,7 @@ using System;
 
 namespace ECommerce.Infrastructure.Migrations
 {
-    public partial class changeidsfrominttostring : Migration
+    public partial class changeIdsFromIntToString : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

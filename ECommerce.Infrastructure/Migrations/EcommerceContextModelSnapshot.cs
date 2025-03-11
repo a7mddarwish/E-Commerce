@@ -37,11 +37,12 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Carts");
                 });
@@ -169,9 +170,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .HasMaxLength(36)
                         .HasColumnType("nvarchar(36)");
 
-                    b.Property<short>("Quantity")
-                        .HasColumnType("smallint");
-
                     b.Property<string>("WishListId")
                         .IsRequired()
                         .HasMaxLength(36)
@@ -186,6 +184,35 @@ namespace ECommerce.Infrastructure.Migrations
                     b.ToTable("ProductsInWishLists");
                 });
 
+            modelBuilder.Entity("ECommerce.Core.Domain.Entities.Review", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("ProductID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(36)");
+
+                    b.Property<decimal>("Stars")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("ECommerce.Core.Domain.Entities.WishList", b =>
                 {
                     b.Property<string>("Id")
@@ -195,12 +222,12 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("WishLists");
                 });
@@ -410,6 +437,17 @@ namespace ECommerce.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ECommerce.Core.Domain.Entities.Cart", b =>
+                {
+                    b.HasOne("ECommerce.Core.Domain.IdentityEntities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ECommerce.Core.Domain.Entities.Image", b =>
                 {
                     b.HasOne("ECommerce.Core.Domain.Entities.Product", null)
@@ -464,6 +502,36 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("WishList");
+                });
+
+            modelBuilder.Entity("ECommerce.Core.Domain.Entities.Review", b =>
+                {
+                    b.HasOne("ECommerce.Core.Domain.Entities.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ECommerce.Core.Domain.IdentityEntities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ECommerce.Core.Domain.Entities.WishList", b =>
+                {
+                    b.HasOne("ECommerce.Core.Domain.IdentityEntities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -534,6 +602,8 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Navigation("ProductsInCarts");
 
                     b.Navigation("ProductsInWishLists");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("ECommerce.Core.Domain.Entities.WishList", b =>

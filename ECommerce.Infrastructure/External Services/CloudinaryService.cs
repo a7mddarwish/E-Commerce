@@ -27,7 +27,8 @@ namespace ECommerce.Infrastructure.Services
                 ApiSecret = settings.Value.ApiSecret,
 
             };
-            _cloudinary = new Cloudinary(account);
+            var httpclient = new HttpClient { Timeout = TimeSpan.FromMinutes(5) };
+            _cloudinary = new Cloudinary(account) { Api =  {Client = httpclient } };
         }
 
         public async Task<string> UploadImageAsync(IFormFile file)
@@ -46,16 +47,16 @@ namespace ECommerce.Infrastructure.Services
                 Transformation = new Transformation().Quality(80).FetchFormat("auto")
             };
             try
-            {            
-            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-            return uploadResult.SecureUrl.AbsoluteUri; // إرجاع رابط الصورة
-            
-            }
-            catch(Exception ex)
             {
-                Console.WriteLine($"Error : {ex.Message}");
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                return uploadResult.SecureUrl.AbsoluteUri;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error uploading to Cloudinary: {ex.Message}");
                 return null;
             }
+
 
         }
 

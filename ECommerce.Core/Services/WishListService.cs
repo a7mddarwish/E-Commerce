@@ -49,7 +49,7 @@ namespace ECommerce.Core.Services
 
         }
 
-        public async Task<bool> RemoveFromCart(string userId, string ProductID)
+        public async Task<bool> RemoveFromWishList(string userId, string ProductID)
         {
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(ProductID))
                 return false;
@@ -76,13 +76,13 @@ namespace ECommerce.Core.Services
 
         public async Task<bool> AddToWishList(string userId, string productId)
         {
-            if (string.IsNullOrEmpty(userId)|| string.IsNullOrEmpty(productId))
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(productId))
                 return false;
 
             var userWishList = await wshRepo.GetWishListByUserId(userId);
 
             if (userWishList == null)
-                userWishList = new WishList { UserId = userId };
+                userWishList = new WishList { UserId =Guid.Parse(userId)};
             
 
             if (userWishList.ProductsInWishLists.Any(p => p.ProductId == productId))

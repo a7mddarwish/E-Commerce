@@ -10,12 +10,14 @@ namespace ECommerce.Core.DTOs
 {
     public class ProductDTO
     {
+
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int categoryId { get; set; }
         public short availInStock { get; set; }
         public decimal Price { get; set; }
+        public ReviewDTO Reviewsinfo { get; set; }
 
 
         public ICollection<Image> Images { get; set; }

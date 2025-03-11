@@ -67,13 +67,35 @@ namespace ECommerce.UI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Prod/{productId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> FindProduct(Guid productId)
+        {
+            if (productId == null)
+                return BadRequest(new {message = "Cannnot find this product , try again and inseart valied data"});
+            
+
+            ProductDTO prod = await productsServ.Find(productId);
+            if(prod == null)
+                return NotFound(new { message = "cannot find this product." });
+
+            return Ok(prod);
+        }
+
 
         [HttpGet]
         [Route("Category/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProductsByCategory(int id)
+        public async Task<IActionResult> GetProductsByCategoryid( int id)
         {
+            if(id < 0)
+                return BadRequest(new { message = "Enter valied categoryID" });
+
             var products = await productsServ.GetByCategoryID(id);
 
 
@@ -84,6 +106,28 @@ namespace ECommerce.UI.Controllers
 
             return Ok(products);
         }
+        
+        [HttpGet("Category")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetProductsByCategoryname([FromRoute]string name)
+        {
+            if(string.IsNullOrEmpty(name))
+                return BadRequest(new { message = "Enter valied category name" });
+
+            var products = await productsServ.GetByCategoryname(name);
+
+
+            if (products == null || products.Count == 0)
+            {
+                return NotFound(new {message = "cannot fetch any data."});
+            }
+
+            return Ok(products);
+        }
+
+
 
         [HttpGet]
         [Route("ExploreProducts")]

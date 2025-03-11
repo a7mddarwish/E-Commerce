@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "D:\\Programming\\ECommerce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\services\\wishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\services\\wishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\servicesconstracts\\ireviewsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\servicesconstracts\\ireviewsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4D36B539-A6A7-4802-9346-23FB2A5BE2F9}|ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj|d:\\programming\\ecommerce\\ecommerce.infrastructure\\repos\\wishlistrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4D36B539-A6A7-4802-9346-23FB2A5BE2F9}|ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj|solutionrelative:ecommerce.infrastructure\\repos\\wishlistrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\services\\reviewsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\services\\reviewsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\domain\\reposconstrucs\\iwishlistrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\domain\\reposconstrucs\\iwishlistrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\servicesconstracts\\iwishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\servicesconstracts\\iwishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\helpers\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\helpers\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,58 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IWishListRepo.cs",
-              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\Domain\\ReposConstrucs\\IWishListRepo.cs",
-              "RelativeDocumentMoniker": "ECommerce.Core\\Domain\\ReposConstrucs\\IWishListRepo.cs",
-              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\Domain\\ReposConstrucs\\IWishListRepo.cs",
-              "RelativeToolTip": "ECommerce.Core\\Domain\\ReposConstrucs\\IWishListRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "IReviewsService.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\ServicesConstracts\\IReviewsService.cs",
+              "RelativeDocumentMoniker": "ECommerce.Core\\ServicesConstracts\\IReviewsService.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\ServicesConstracts\\IReviewsService.cs",
+              "RelativeToolTip": "ECommerce.Core\\ServicesConstracts\\IReviewsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:09:32.381Z",
+              "WhenOpened": "2025-03-11T15:20:04.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\Helpers\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "ECommerce.Core\\Helpers\\MappingProfile.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\Helpers\\MappingProfile.cs",
+              "RelativeToolTip": "ECommerce.Core\\Helpers\\MappingProfile.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACQAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T15:19:01.122Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "WishListRepo.cs",
-              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Infrastructure\\Repos\\WishListRepo.cs",
-              "RelativeDocumentMoniker": "ECommerce.Infrastructure\\Repos\\WishListRepo.cs",
-              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Infrastructure\\Repos\\WishListRepo.cs",
-              "RelativeToolTip": "ECommerce.Infrastructure\\Repos\\WishListRepo.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Title": "ReviewsService.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\Services\\ReviewsService.cs",
+              "RelativeDocumentMoniker": "ECommerce.Core\\Services\\ReviewsService.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\Services\\ReviewsService.cs",
+              "RelativeToolTip": "ECommerce.Core\\Services\\ReviewsService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:08:34.485Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "WishListService.cs",
-              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\Services\\WishListService.cs",
-              "RelativeDocumentMoniker": "ECommerce.Core\\Services\\WishListService.cs",
-              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\Services\\WishListService.cs",
-              "RelativeToolTip": "ECommerce.Core\\Services\\WishListService.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAowBoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:01:14.264Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IWishListService.cs",
-              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\ServicesConstracts\\IWishListService.cs",
-              "RelativeDocumentMoniker": "ECommerce.Core\\ServicesConstracts\\IWishListService.cs",
-              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\ServicesConstracts\\IWishListService.cs",
-              "RelativeToolTip": "ECommerce.Core\\ServicesConstracts\\IWishListService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T19:57:01.357Z",
+              "WhenOpened": "2025-03-11T15:18:34.402Z",
               "EditorCaption": ""
             }
           ]

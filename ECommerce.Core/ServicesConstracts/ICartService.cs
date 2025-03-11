@@ -11,9 +11,9 @@ namespace ECommerce.Core.ServicesConstracts
     public interface ICartService
     {
 
-
-        public Task<bool> AddToCart(AddProductCartDTO prodCartDTO , string userid);
+        public Task<bool> AddToCart(AddProductCartDTO prodCartDTO , Guid userid);
         public Task<bool> RemoveProductFromCart(string userID, string productId);
         public Task<short> ProductInuserCart(string userID,string productId);
+        public Task<IEnumerable<ProductDTO>> ProductsInCart(string userID);
     }
 }

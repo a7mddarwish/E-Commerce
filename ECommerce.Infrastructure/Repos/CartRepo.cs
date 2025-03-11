@@ -64,7 +64,7 @@ namespace ECommerce.Infrastructure.Repos
 
         public async Task<Cart> GetCurrnetCart(string userid)
         {
-            return await carts.Include(c => c.ProductsInCarts).FirstOrDefaultAsync(c => c.UserId == userid);
+            return await carts.Include(c => c.ProductsInCarts).FirstOrDefaultAsync(c => c.UserId.ToString() == userid);
         }
 
         public void AddProductinCart(ProductsInCart product)

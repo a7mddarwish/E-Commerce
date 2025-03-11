@@ -10,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
+using ECommerce.Core.ServicesConstracts.Email;
 
 namespace ECommerce.UI.Controllers
 {
@@ -20,10 +21,10 @@ namespace ECommerce.UI.Controllers
     {
         private readonly UserManager<AppUser> usermanager;
         private readonly IConfiguration config;
-        private readonly EmailSender emailsender;
+        private readonly IEmailSender emailsender;
         private readonly IMapper mapper;
 
-        public AccountController(UserManager<AppUser> usermanager, IConfiguration config, EmailSender emailsender, IMapper mapper)
+        public AccountController(UserManager<AppUser> usermanager, IConfiguration config, IEmailSender emailsender, IMapper mapper)
         {
             this.usermanager = usermanager;
             this.config = config;
@@ -113,7 +114,6 @@ namespace ECommerce.UI.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     // Add here role like admin 
-                    //Addded in Claims catch it using Claimsprincipls
                     new Claim("userEmail" , actuser.Email),
                     new Claim("UserID" , actuser.Id.ToString()),
                     new Claim("Address" , actuser.Address),

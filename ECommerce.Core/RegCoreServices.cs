@@ -23,6 +23,7 @@ namespace ECommerce.Core
             service.RegEmailsender();
             service.RegCartService();
             service.RegStockService();
+            service.RegReviewServices();
 
             return service;
         }
@@ -43,6 +44,10 @@ namespace ECommerce.Core
         {
             return service.AddScoped<IImageServices, ImageServices>();
         }
+        private static IServiceCollection RegReviewServices(this IServiceCollection service)
+        {
+            return service.AddScoped<IReviewsService, ReviewsService>();
+        }
         
         private static IServiceCollection RegCategoriesServices(this IServiceCollection service)
         {
@@ -51,12 +56,13 @@ namespace ECommerce.Core
         private static IServiceCollection RegEmailsender(this IServiceCollection service)
         {
 
-            service.AddTransient<EmailSender>();
+            service.AddTransient<IEmailSender,EmailSender>();
             return service;
 
         }
+       
 
-           private static IServiceCollection RegCartService(this IServiceCollection service)
+        private static IServiceCollection RegCartService(this IServiceCollection service)
         {
 
             service.AddScoped<ICartService , CartService>();
@@ -64,7 +70,7 @@ namespace ECommerce.Core
 
         }
 
-           private static IServiceCollection RegStockService(this IServiceCollection service)
+        private static IServiceCollection RegStockService(this IServiceCollection service)
         {
 
             service.AddScoped<IStockService , StockService>();

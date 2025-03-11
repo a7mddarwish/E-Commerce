@@ -9,8 +9,8 @@ namespace ECommerce.Core.ServicesConstracts
 {
     public interface IStockService
     {
-        public Task<bool> IsAvilableInStock(string ProductID, int quantity);
-        public Task<bool> ProductExist (string productID);
-        public Task<Product> GetProduct(string productID);
+        public Task<bool> IsAvilableInStock(Guid ProductID, int quantity);
+        public Task<bool> ProductExist (Guid productID);
+        public Task<Product> GetProduct(Guid productID);
     }
 }

@@ -31,9 +31,7 @@ namespace ECommerce.Core.Services
 
                ImageUrl = url,
                IsPrimary = IsPrimary,
-               ProductId = productid    
-               
-
+               ProductId = productid            
            });
 
             return url;
@@ -56,8 +54,6 @@ namespace ECommerce.Core.Services
         }
 
 
-
-
         // Delete from DB
         public async Task<bool> DeleteFromDBByIDAsync(string imageId)
         {
@@ -75,6 +71,11 @@ namespace ECommerce.Core.Services
         public async Task<string> GetIDByurl(string Imageurl)
         {
             return (await repo.FindByurlAsync(Imageurl)).Id;
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+           return await repo.SaveChangesAsync() > 0;
         }
     }
 }

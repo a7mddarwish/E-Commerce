@@ -1,23 +1,25 @@
 ﻿using ECommerce.Core.Domain.IdentityEntities;
+using ECommerce.Core.DTOs;
 using ECommerce.Core.ServicesConstracts.Email;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace ECommerce.Core.Services
 {
-    public class EmailSender
+    public class EmailSender :IEmailSender
     {
-        private readonly IEmailSenderServiceexternalserv emailsender;
+        private readonly IEmailSenderServiceexternalserv sender;
 
         public EmailSender(IEmailSenderServiceexternalserv emailsender)
         {
-            this.emailsender = emailsender;
+            this.sender = emailsender;
         }
 
         public async Task SendConfirmationEmail(string email, AppUser user , string?token , string confirmationLink)
@@ -65,7 +67,27 @@ namespace ECommerce.Core.Services
     ";
 
             //Send the Confirmation Email to the User Email Id
-            await emailsender.SendEmailAsync(email, subject, messageBody, true);
+            await sender.SendEmailAsync(email, subject, messageBody, true);
+        }
+
+        public async Task EmailFromContactUs(ContactUsDTO contactus)
+        {
+            string myEmail = "A7mddarwish7Dev@gmail.com";
+
+            string emailBody = $@"
+        <h2>New Contact Us Message</h2>
+        <p><strong>Name:</strong>  {contactus.name}</p>
+        <p><strong>Email:</strong> {contactus.email}</p>
+        <p><strong>Phone:</strong> {contactus.phone}</p>
+        <hr>
+        <p><strong>Message:</strong></p>
+        <p>{contactus.message}</p>
+        <br>
+        <p>--- This message was sent from the Contact Us form ---</p>
+    
+            ";
+
+            await sender.SendEmailAsync(myEmail, contactus.subject, emailBody, true);
         }
     }
 }

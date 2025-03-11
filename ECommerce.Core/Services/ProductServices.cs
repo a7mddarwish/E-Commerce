@@ -69,51 +69,64 @@ namespace ECommerce.Core.Services
                 return null;
             }
 
+ 
+           if(! await imageServices.SaveChangesAsync())
+                repo.Delete(product);
+
+            product.Images = images;
+
+            
+
+
         
-
-            //foreach(var item in images)
-            //{
-            //    int x = await imageServices.GetIDByurl(item.ImageUrl);
-            //   if (! await producyimages.AddNew(new ProductImage { ProductId = product.Id, ImageId = x }))               
-            //        return null;               
-            //}
-
-
-            //return new ProductDTO
-            //{
-            //    Id = product.Id,
-            //    Name = product.Name,
-            //    availInStock = product.AvailableInStock,
-            //    Description = product.Description,
-            //    Price = product.Price,
-            //    categoryId = product.CategoryId,
-            //    Images = images
-
-            //};
-
-
-
             return mapper.Map<ProductDTO>(product);
         }
-
-        public Task<ProductDTO> AddnewProduct(ProductDTO productdto)
-        {
-            throw new NotImplementedException();
-        }
-
+     
         public async Task<List<ProductDTO>> GetByCategoryID(int catId)
         {
+            if(catId < 0)
+                return null;
             var products = await repo.GetProductsByCatID(catId);
+
+            if (products == null)
+                return null;
 
             // using automapper 
             return mapper.Map<List<ProductDTO>>(products);
 
         }
+        public async Task<List<ProductDTO>> GetByCategoryname(string catName)
+        {
+            if(string.IsNullOrEmpty(catName))
+                return null;
 
-        // random product form each category
+            var products = await repo.GetProductsByCatname(catName);
+
+            if(products == null)
+                return null;
+            // using automapper 
+            return mapper.Map<List<ProductDTO>>(products);
+
+        }
+
         public async Task<List<ProductDTO>> ExploreProducts()
         {
             return mapper.Map<List<ProductDTO>>(await repo.ExploreProducts());
         }
+
+        public async Task<ProductDTO> Find(Guid ProductID)
+        {
+            if(ProductID == null)
+                return null;
+
+            var product = await repo.FindByIdAsync(ProductID);
+
+            if(product == null)
+                return null;
+
+            return mapper.Map<ProductDTO>(product);
+        }
+
+        
     }
 }

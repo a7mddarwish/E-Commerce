@@ -17,7 +17,7 @@ public partial class Product
 
     public int CategoryId { get; set; }
 
-    public int AvailableInStock { get; set; }
+    public short AvailableInStock { get; set; }
 
     public virtual Category? Category { get; set; }
 
@@ -26,4 +26,6 @@ public partial class Product
     public virtual ICollection<ProductsInCart> ProductsInCarts { get; set; } = new List<ProductsInCart>();
 
     public virtual ICollection<ProductsInWishList> ProductsInWishLists { get; set; } = new List<ProductsInWishList>();
+
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 }

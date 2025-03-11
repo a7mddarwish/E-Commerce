@@ -12,7 +12,7 @@ namespace ECommerce.Core.DTOs
         public int categoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int availInStock { get; set; }
+        public short availInStock { get; set; }
         public string category { get; set; }
         public decimal Price { get; set; }
         public List<IFormFile>? formFile { get; set; }

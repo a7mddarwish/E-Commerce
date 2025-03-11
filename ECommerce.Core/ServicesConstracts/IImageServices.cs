@@ -22,5 +22,6 @@ namespace ECommerce.Core.ServicesConstracts
 
 
         public Task<string> GetIDByurl(string Imageurl);
+        public Task<bool> SaveChangesAsync();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ECommerce.Core.DTOs;
+using ECommerce.Core.Services;
 using ECommerce.Core.ServicesConstracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,19 +29,23 @@ namespace ECommerce.UI.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddCartProduct(AddProductCartDTO prodCartDTO)
         {
-            string userId = User.FindFirst("UserID").Value;
+            // correct it copilot
+
+            // cast 
+             Guid.TryParse((User.FindFirst("UserID").Value) , out Guid userId);
+             Guid.TryParse(prodCartDTO.productId, out Guid prodid);
                 //chaeck if user input data حلوة
                 if (prodCartDTO.quantity < 1)
                 return BadRequest(new {message = "Choice valied quantity!"});
 
                 //chaeck if user input data حلوة
-                if (string.IsNullOrEmpty(userId) ||!await stock.ProductExist(prodCartDTO.productId))
+                if (userId == null ||!await stock.ProductExist(prodid))
                 return NotFound(new {message ="unable to featch Data , please try later"});
 
         
                 // check if quantity available First
-              short productsincart = await cartServ.ProductInuserCart(userId, prodCartDTO.productId);
-               if (! await stock.IsAvilableInStock(prodCartDTO.productId , productsincart+prodCartDTO.quantity))
+              short productsincart = await cartServ.ProductInuserCart(userId.ToString(), prodCartDTO.productId);
+               if (! await stock.IsAvilableInStock(prodid, productsincart+prodCartDTO.quantity))
                    return BadRequest(new { message = "this quantity not avliable now !" });
 
 
@@ -53,7 +58,7 @@ namespace ECommerce.UI.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("DeleteFromCart")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,6 +74,25 @@ namespace ECommerce.UI.Controllers
                 return Unauthorized(new { message = "User Not Found." });
 
             return (await cartServ.RemoveProductFromCart(userID, productID)) ? Ok("deleted succesfully") : StatusCode(500, new { message = "Internal Server error" });
+
+
+        }
+
+
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetWishListProducts()
+        {
+            string? userID = User.FindFirst("UserID")?.Value;
+            if (string.IsNullOrEmpty(userID))
+                return Unauthorized(new { message = "Log in First" });
+
+            var Products = await cartServ.ProductsInCart(userID);
+
+            return (Products == null) ? NotFound(new { message = "Not found any products" }) : Ok(Products);
 
 
         }

@@ -24,9 +24,11 @@ namespace ECommerce.Core.Services
             this.mapper = mapper;
         }
 
-        public async Task<bool>AddToCart(AddProductCartDTO prodCartDTO , string userId)
+        public async Task<bool>AddToCart(AddProductCartDTO prodCartDTO , Guid userId)
         {
-            Cart crntcart = await cartRepo.GetCurrnetCart(userId);
+            if(userId == null) return false;
+
+            Cart crntcart = await cartRepo.GetCurrnetCart(userId.ToString());
 
             if (crntcart == null)
             {
@@ -39,7 +41,7 @@ namespace ECommerce.Core.Services
                 cartRepo.Add(crntcart);
             
                if( await cartRepo.SaveChangesAsync() > 0)
-                crntcart = await cartRepo.GetCurrnetCart(userID:crntcart.UserId);
+                crntcart = await cartRepo.GetCurrnetCart(crntcart.UserId.ToString());
 
                else
                 return false;
@@ -64,7 +66,7 @@ namespace ECommerce.Core.Services
 
 
 
-            Product prod = await stock.GetProduct(prodCartDTO.productId);
+            Product prod = await stock.GetProduct(Guid.Parse(prodCartDTO.productId));
 
             ProductsInCart productCart = new ProductsInCart
             {
@@ -94,6 +96,13 @@ namespace ECommerce.Core.Services
               return crt.ProductsInCarts.First(x => x.ProductId == ProductId).Quantity;
 
             return 0;
+        }
+
+        public async Task<IEnumerable<ProductDTO>> ProductsInCart(string userID)
+        {
+            Cart usercart = await cartRepo.GetCurrnetCart(userID);
+
+            return mapper.Map<IEnumerable<ProductDTO>>(usercart.ProductsInCarts.Select(p => p.Product));
         }
 
         public async Task<bool> RemoveProductFromCart(string userID, string ProductId)
