@@ -1,0 +1,7 @@
+# Ignore build and bin/obj folders
+bin/
+obj/
+.vs/
+**/appsettings.Production.json
+**/*.pubxml
+**/*.user
