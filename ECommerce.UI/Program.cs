@@ -4,6 +4,7 @@ using ECommerce.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -46,15 +47,14 @@ namespace ECommerce.UI
              });
 
             builder.Services.AddCors(options =>
-             {
-                 options.AddPolicy("AllowAllOrigins",
-                     policy =>
-                     policy.AllowAnyOrigin()
-                     .AllowAnyHeader()
-                     .AllowAnyMethod());
-
-
-             });
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()   
+                          .AllowAnyMethod()   
+                          .AllowAnyHeader();  
+                });
+            });
 
             // Add services to the container.
 
@@ -77,10 +77,26 @@ namespace ECommerce.UI
             // change default behavure of Identity system
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                options.SignIn.RequireConfirmedEmail = true;
+              
+                    options.Password.RequiredLength = 8;
 
-                options.User.RequireUniqueEmail = true;
+                    options.Password.RequiredUniqueChars = 2;
 
+                    options.Password.RequireLowercase = true;
+
+                    options.Password.RequireUppercase = true;
+
+                    options.Password.RequireDigit = true;
+
+                    options.Password.RequireNonAlphanumeric = true;
+
+                    options.Lockout.MaxFailedAccessAttempts = 5;
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+
+                    options.User.RequireUniqueEmail = true;
+                    options.SignIn.RequireConfirmedEmail = true;
+          
+                
 
             });
 
@@ -120,7 +136,7 @@ namespace ECommerce.UI
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+         //   if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -128,7 +144,7 @@ namespace ECommerce.UI
 
             app.UseHttpsRedirection();
 
-            app.UseCors("AllowAllOrigins");
+            app.UseCors("AllowAll");
 
             app.UseAuthentication();
             app.UseAuthorization();

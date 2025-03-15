@@ -102,6 +102,8 @@ namespace ECommerce.Core.Services
         {
             Cart usercart = await cartRepo.GetCurrnetCart(userID);
 
+            if(usercart == null) return null;
+
             return mapper.Map<IEnumerable<ProductDTO>>(usercart.ProductsInCarts.Select(p => p.Product));
         }
 

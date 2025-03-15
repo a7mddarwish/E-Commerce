@@ -861,26 +861,23 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "Name": {
+                    "type": "string"
+                  },
                   "categoryId": {
                     "type": "integer",
                     "format": "int32"
                   },
-                  "Name": {
-                    "type": "string"
-                  },
                   "Description": {
-                    "type": "string"
-                  },
-                  "availInStock": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
-                  "category": {
                     "type": "string"
                   },
                   "Price": {
                     "type": "number",
                     "format": "double"
+                  },
+                  "availInStock": {
+                    "type": "integer",
+                    "format": "int32"
                   },
                   "formFile": {
                     "type": "array",
@@ -892,22 +889,19 @@
                 }
               },
               "encoding": {
-                "categoryId": {
+                "Name": {
                   "style": "form"
                 },
-                "Name": {
+                "categoryId": {
                   "style": "form"
                 },
                 "Description": {
                   "style": "form"
                 },
-                "availInStock": {
-                  "style": "form"
-                },
-                "category": {
-                  "style": "form"
-                },
                 "Price": {
+                  "style": "form"
+                },
+                "availInStock": {
                   "style": "form"
                 },
                 "formFile": {
@@ -926,6 +920,26 @@
           },
           "400": {
             "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1146,6 +1160,58 @@
         "responses": {
           "200": {
             "description": "Success"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Produts/JustForYou": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "404": {
             "description": "Not Found",

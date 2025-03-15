@@ -16,7 +16,9 @@ namespace ECommerce.UI.Controllers
         public ProductController(IProductServices productsServ)
         {
             this.productsServ = productsServ;
+            
         }
+
 
         [HttpGet]
         [Route("All")]
@@ -34,20 +36,30 @@ namespace ECommerce.UI.Controllers
         }
 
 
+
+        // http://localhost:5000/api/Produts/Add
         [HttpPost]
         [Route("Add")]
         [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddProduct([FromForm] NewProdutDTO product)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> AddProduct([FromForm] AddProdutDTO product)
         {
-         
 
-            if (!ModelState.IsValid)
-            {
+            if (!User.IsInRole("Admin"))           
+                return Unauthorized(new { message = "You are not authorized to add a product." });
+            
+
+            if (!ModelState.IsValid)            
                 return BadRequest(ModelState);
-            }
+
+
+            if (await productsServ.IsCategoryExixst(product.categoryId))
+                return BadRequest(new { message = "Category not found." });
+
+
 
             try
             {
@@ -144,5 +156,36 @@ namespace ECommerce.UI.Controllers
 
             return Ok(products);
         }
+        
+        [HttpGet]
+        [Route("JustForYou")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> JsutForYou() 
+        {
+
+            string? IDClaim = User.FindFirst(c => c.Type == "UserID")?.Value;
+
+            if (string.IsNullOrEmpty(IDClaim))
+                return Unauthorized(new { message = "Register your account First" });
+
+            Guid.TryParse(IDClaim, out Guid userID);
+            if (userID == null)
+                return Unauthorized(new { message = "Invalid user" });
+
+
+
+            var products = await productsServ.JustForYouProducts(userID);
+
+            if (products == null || products.Count == 0)
+            {
+                return NotFound(new { message = "cannot catch any data." });
+            }
+
+            return Ok(products);
+        }
+
+
     }
 }

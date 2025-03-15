@@ -22,6 +22,7 @@ namespace ECommerce.Core.Helpers
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.categoryId, opt => opt.MapFrom(src => src.CategoryId))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.ToList()))
+                .ForMember(dest => dest.categoryName, opt => opt.MapFrom(src => src.Category.Name))                
                 .ForMember(dest => dest.Reviewsinfo, opt => opt.MapFrom(src => new ReviewDTO
                 {
                     ProductID = src.Id,

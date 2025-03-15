@@ -11,6 +11,7 @@ namespace ECommerce.Core.ServicesConstracts
     {
         Task<IEnumerable<Category>> GetAllCategories();
         Task<IEnumerable<Category>> GetCatsWithproducts();
+         
 
         Task<int> Add(Category category);
     }

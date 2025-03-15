@@ -1,6 +1,5 @@
 D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\appsettings.Development.json
 D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\appsettings.json
-D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\ECommerce.UI.staticwebassets.endpoints.json
 D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\ECommerce.UI.exe
 D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\ECommerce.UI.deps.json
 D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\ECommerce.UI.runtimeconfig.json
@@ -69,14 +68,11 @@ D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\ECommerce.UI.MvcApplicati
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\scopedcss\bundle\ECommerce.UI.styles.css
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.build.json
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.development.json
-D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.build.endpoints.json
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets\msbuild.ECommerce.UI.Microsoft.AspNetCore.StaticWebAssets.props
-D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets\msbuild.ECommerce.UI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets\msbuild.build.ECommerce.UI.props
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.ECommerce.UI.props
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.ECommerce.UI.props
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.pack.json
-D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.upToDateCheck.txt
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\ECommerc.0ECAB3C6.Up2Date
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\ECommerce.UI.dll
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\refint\ECommerce.UI.dll
@@ -104,3 +100,9 @@ D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\System.Text.Encoding.Code
 D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
 D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Text.Encoding.CodePages.dll
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\ECommerce.UI.sourcelink.json
+D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\appsettings.Production.json
+D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\global.json
+D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\ECommerce.UI.staticwebassets.endpoints.json
+D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.build.endpoints.json
+D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets\msbuild.ECommerce.UI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.upToDateCheck.txt

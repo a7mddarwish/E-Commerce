@@ -531,13 +531,13 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "categoryId",
-        "Type": "System.Int32",
+        "Name": "Name",
+        "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "Name",
-        "Type": "System.String",
+        "Name": "categoryId",
+        "Type": "System.Int32",
         "IsRequired": false
       },
       {
@@ -546,18 +546,13 @@
         "IsRequired": false
       },
       {
-        "Name": "availInStock",
-        "Type": "System.Int16",
-        "IsRequired": false
-      },
-      {
-        "Name": "category",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
         "Name": "Price",
         "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "availInStock",
+        "Type": "System.Int16",
         "IsRequired": false
       },
       {
@@ -585,6 +580,15 @@
           "text/json"
         ],
         "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 401
       }
     ]
   },
@@ -706,6 +710,40 @@
         "Type": "System.Void",
         "MediaTypes": [],
         "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "ECommerce.UI.Controllers.ProductController",
+    "Method": "JsutForYou",
+    "RelativePath": "api/Produts/JustForYou",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 401
       },
       {
         "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",

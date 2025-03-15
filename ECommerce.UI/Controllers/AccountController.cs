@@ -24,6 +24,7 @@ namespace ECommerce.UI.Controllers
         private readonly IEmailSender emailsender;
         private readonly IMapper mapper;
 
+        public static string[] roles = new string[] { "Admin", "Customer" };
         public AccountController(UserManager<AppUser> usermanager, IConfiguration config, IEmailSender emailsender, IMapper mapper)
         {
             this.usermanager = usermanager;
@@ -196,7 +197,8 @@ namespace ECommerce.UI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Userinfo()
         {
-            var userId = User.FindFirstValue("UserID");
+            string? userId = User.FindFirst(c => c.Type == "UserID")?.Value;
+
 
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized(new { error = "UserID claim not found" });
@@ -220,8 +222,12 @@ namespace ECommerce.UI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { message = "Enter valied info" });
+            string? IDClaim = User.FindFirst(c => c.Type == "UserID")?.Value;
 
-            AppUser user = await usermanager.FindByIdAsync(User.FindFirst("UserID").Value);
+            if(string.IsNullOrEmpty(IDClaim))
+                return Unauthorized(new { message = "User Not Found" });
+
+            AppUser user = await usermanager.FindByIdAsync(IDClaim);
 
             if (!await usermanager.CheckPasswordAsync(user , userinfodto.passwordToConfirm))
                 return BadRequest(new { message = "Password was wrong , Please check again or reset the password" });

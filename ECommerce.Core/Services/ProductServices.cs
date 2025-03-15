@@ -29,7 +29,7 @@ namespace ECommerce.Core.Services
 
         }
 
-        public async Task<ProductDTO> AddnewProduct(NewProdutDTO newproductdto)
+        public async Task<ProductDTO> AddnewProduct(AddProdutDTO newproductdto)
         {
             // Save Product into Db and get id
             Product product = new Product
@@ -127,6 +127,22 @@ namespace ECommerce.Core.Services
             return mapper.Map<ProductDTO>(product);
         }
 
-        
+        public async Task<List<ProductDTO>> JustForYouProducts(Guid userid)
+        {
+
+            return mapper.Map<List<ProductDTO>>(await repo.JustForYou(userid));
+
+        }
+
+        public async Task<bool> IsCategoryExixst(string name)
+        {
+            return await repo.IsCategoryExist(name);
+
+        }
+
+        public async Task<bool> IsCategoryExixst(int id)
+        {
+            return await repo.IsCategoryExist(id);
+        }
     }
 }

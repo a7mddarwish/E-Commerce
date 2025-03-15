@@ -44,9 +44,10 @@ namespace ECommerce.Infrastructure.Repos
         public async Task<IEnumerable<Category>> GetCatsWithproducts()
         {
             return await categories.ToListAsync();
-         //   return await categories.Include(c => c.Products).ToListAsync();
-
+ 
         }
+
+     
 
         public Task<int> SaveChangesAsync()
         {

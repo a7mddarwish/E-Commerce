@@ -29,16 +29,24 @@ namespace ECommerce.UI.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddCartProduct(AddProductCartDTO prodCartDTO)
         {
-            // correct it copilot
+            if(string.IsNullOrEmpty(prodCartDTO.productId))
+                return BadRequest(new { message = "Enter valied product ID" });
 
-            // cast 
-             Guid.TryParse((User.FindFirst("UserID").Value) , out Guid userId);
-             Guid.TryParse(prodCartDTO.productId, out Guid prodid);
-                //chaeck if user input data حلوة
+            string? IDClaim = User.FindFirst(c => c.Type == "UserID")?.Value;
+
+            if (string.IsNullOrEmpty(IDClaim))
+                return Unauthorized(new { message = "Invalid user" });
+
+            Guid.TryParse(IDClaim, out Guid userId);
+            if (userId == null)
+                return Unauthorized(new { message = "Invalid user" });
+
+            Guid.TryParse(prodCartDTO.productId, out Guid prodid);
+                //check if user input data حلوة
                 if (prodCartDTO.quantity < 1)
                 return BadRequest(new {message = "Choice valied quantity!"});
 
-                //chaeck if user input data حلوة
+                //check if user input data حلوة
                 if (userId == null ||!await stock.ProductExist(prodid))
                 return NotFound(new {message ="unable to featch Data , please try later"});
 

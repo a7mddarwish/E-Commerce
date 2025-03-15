@@ -29,5 +29,7 @@ namespace ECommerce.Core.Services
         {
             return await repo.GetCatsWithproducts();
         }
+
+      
     }
 }

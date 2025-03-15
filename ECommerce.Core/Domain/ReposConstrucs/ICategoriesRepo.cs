@@ -11,6 +11,7 @@ namespace ECommerce.Core.Domain.ReposConstrucs
     {
         public Task<IEnumerable<Category>> GetCatsWithproducts();
         public Task<IEnumerable<Category>> GetAllAsync();
+       
 
     }
 }

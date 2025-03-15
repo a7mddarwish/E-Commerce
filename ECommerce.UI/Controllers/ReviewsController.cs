@@ -30,9 +30,12 @@ namespace ECommerce.UI.Controllers
         {
             if(!ModelState.IsValid)
                 return BadRequest(new { message = "Invalid data" });
+            string? IDClaim = User.FindFirst(c => c.Type == "UserID")?.Value;
 
- 
-            Guid.TryParse( User.Claims.FirstOrDefault(c => c.Type == "UserID").Value , out Guid userID);
+            if (string.IsNullOrEmpty(IDClaim))
+                return Unauthorized(new { message = "Invalid user" });
+
+            Guid.TryParse( IDClaim, out Guid userID);
             if(userID == null)
                 return Unauthorized(new { message = "Invalid user" });
 
@@ -43,7 +46,6 @@ namespace ECommerce.UI.Controllers
             return StatusCode(500 , "Internal server error , error occure while save review");
         }
 
-        // generate end point for get user review
         [HttpGet]
         [Route("UserReview")]
         [Authorize]
@@ -53,7 +55,15 @@ namespace ECommerce.UI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UserReview(string ProductID)
         {
-            Guid.TryParse(User.Claims.FirstOrDefault(c => c.Type == "UserID").Value, out Guid userID);
+            string? IDClaim = User.FindFirst(c => c.Type == "UserID")?.Value;
+
+            if (string.IsNullOrEmpty(IDClaim))
+                return Unauthorized(new { message = "Invalid user" });
+
+            Guid.TryParse(IDClaim, out Guid userID);
+            if (userID == null)
+                return Unauthorized(new { message = "Invalid user" });
+
             if (userID == null)
                 return Unauthorized(new { message = "Invalid user" });
             var review = await reviewsService.UserReview(userID, ProductID);
@@ -63,7 +73,6 @@ namespace ECommerce.UI.Controllers
         }
 
 
-        // generate end point for update user review
         [HttpPut]
         [Route("UpdateReview")]
         [Authorize]
@@ -73,11 +82,18 @@ namespace ECommerce.UI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateReview(AddReviewDTO reviewDTO)
         {
+           
             if (!ModelState.IsValid)
                 return BadRequest(new { message = "Invalid data" });
-            Guid.TryParse(User.Claims.FirstOrDefault(c => c.Type == "UserID").Value, out Guid userID);
+            string? IDClaim = User.FindFirst(c => c.Type == "UserID")?.Value;
+
+            if (string.IsNullOrEmpty(IDClaim))
+                return Unauthorized(new { message = "Invalid user" });
+
+            Guid.TryParse(IDClaim, out Guid userID);
             if (userID == null)
                 return Unauthorized(new { message = "Invalid user" });
+
             if (await reviewsService.UpdateReview(reviewDTO, userID))
             {
                 return Ok("updated successfully");
@@ -85,7 +101,6 @@ namespace ECommerce.UI.Controllers
             return StatusCode(500, "Internal server error , error occure while update review");
         }
 
-        // generate end point for delete user review
         [HttpDelete]
         [Route("DeleteReview")]
         [Authorize]
@@ -95,9 +110,16 @@ namespace ECommerce.UI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteReview(string ProductID)
         {
-            Guid.TryParse(User.Claims.FirstOrDefault(c => c.Type == "UserID").Value, out Guid userID);
+            string? IDClaim = User.FindFirst(c => c.Type == "UserID")?.Value;
+
+
+            if (string.IsNullOrEmpty(IDClaim))
+                return Unauthorized(new { message = "Invalid user" });
+
+            Guid.TryParse(IDClaim, out Guid userID);
             if (userID == null)
                 return Unauthorized(new { message = "Invalid user" });
+
             if (await reviewsService.DeleteReview(userID, ProductID))
             {
                 return Ok("deleted successfully");

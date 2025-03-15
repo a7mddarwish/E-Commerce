@@ -1,12 +1,54 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Programming\\ECommerce\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|d:\\programming\\ecommerce\\ecommerce.ui\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3DDE17CB-BE40-4175-A4A3-B725A9FDF9A3}|ECommerce.UI\\ECommerce.UI.csproj|solutionrelative:ecommerce.ui\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|d:\\programming\\ecommerce\\ecommerce.core\\dtos\\addprodutdto.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{1A1FAA94-563C-4B96-B6E5-EFB8B032774F}|ECommerce.Core\\ECommerce.Core.csproj|solutionrelative:ecommerce.core\\dtos\\addprodutdto.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AddProdutDTO.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.Core\\DTOs\\AddProdutDTO.cs",
+              "RelativeDocumentMoniker": "ECommerce.Core\\DTOs\\AddProdutDTO.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.Core\\DTOs\\AddProdutDTO.cs",
+              "RelativeToolTip": "ECommerce.Core\\DTOs\\AddProdutDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T20:51:24.522Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "ECommerce.UI\\Controllers\\ProductController.cs",
+              "ToolTip": "D:\\Programming\\ECommerce\\ECommerce.UI\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "ECommerce.UI\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAC8AAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T20:42:05.512Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

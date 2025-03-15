@@ -13,9 +13,12 @@ namespace ECommerce.Core.Domain.ReposConstrucs
         public Task<IEnumerable<Product>> GetProductsByCatID(int catID);
         public Task<IEnumerable<Product>> GetProductsByCatname(string catname);
         public Task<List<Product>> ExploreProducts();
+        public Task<IEnumerable<Product>> JustForYou(Guid userId);
         public Task<IEnumerable<Product>> GetProductsByCatName(string catName);
         public Task<string> AddwithID(Product entity);
         public Task<Product> FindByIdAsync(Guid id);
+        public Task<bool> IsCategoryExist(int id);
+        public Task<bool> IsCategoryExist(string name);
 
 
     }
