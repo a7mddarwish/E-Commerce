@@ -37,7 +37,6 @@ namespace ECommerce.UI.Controllers
 
 
 
-        // http://localhost:5000/api/Produts/Add
         [HttpPost]
         [Route("Add")]
         [Consumes("multipart/form-data")]
@@ -49,7 +48,7 @@ namespace ECommerce.UI.Controllers
         {
 
             if (!User.IsInRole("Admin"))           
-                return Unauthorized(new { message = "You are not authorized to add a product." });
+                return Forbid( "You are not authorized to add a product.");
             
 
             if (!ModelState.IsValid)            
@@ -70,7 +69,7 @@ namespace ECommerce.UI.Controllers
                     return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add product.");
                 }
 
-                return Ok(newProd);
+                return CreatedAtAction("FindProduct", newProd.Id);
 
             }
             catch (Exception ex)
@@ -99,11 +98,11 @@ namespace ECommerce.UI.Controllers
 
 
         [HttpGet]
-        [Route("Category/{id}")]
+        [Route("Category/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProductsByCategoryid( int id)
+        public async Task<IActionResult> GetProductsByCategoryid(int id)
         {
             if(id < 0)
                 return BadRequest(new { message = "Enter valied categoryID" });
@@ -119,11 +118,11 @@ namespace ECommerce.UI.Controllers
             return Ok(products);
         }
         
-        [HttpGet("Category")]
+        [HttpGet("{name}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProductsByCategoryname([FromRoute]string name)
+        public async Task<IActionResult> GetProductsByCategoryName(string name)
         {
             if(string.IsNullOrEmpty(name))
                 return BadRequest(new { message = "Enter valied category name" });

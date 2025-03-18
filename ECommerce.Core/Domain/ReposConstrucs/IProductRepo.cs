@@ -11,7 +11,6 @@ namespace ECommerce.Core.Domain.ReposConstrucs
     {
         public Task<IEnumerable<Product>> GetAllAsync();
         public Task<IEnumerable<Product>> GetProductsByCatID(int catID);
-        public Task<IEnumerable<Product>> GetProductsByCatname(string catname);
         public Task<List<Product>> ExploreProducts();
         public Task<IEnumerable<Product>> JustForYou(Guid userId);
         public Task<IEnumerable<Product>> GetProductsByCatName(string catName);

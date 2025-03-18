@@ -1089,7 +1089,7 @@
         }
       }
     },
-    "/api/Produts/Category": {
+    "/api/Produts/{name}": {
       "get": {
         "tags": [
           "Product"

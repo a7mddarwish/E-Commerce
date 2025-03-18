@@ -20,5 +20,6 @@ public partial class Cart
 
     public decimal TotalPrice { get; set; }
 
-    public ICollection<ProductsInCart> ProductsInCarts { get; set; } = new List<ProductsInCart>();
+    // virtual navigation property to apply lazy loading
+    public virtual ICollection<ProductsInCart> ProductsInCarts { get; set; } = new List<ProductsInCart>();
 }

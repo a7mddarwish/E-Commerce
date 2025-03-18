@@ -16,5 +16,5 @@ public partial class Image
 
     public bool IsPrimary { get; set; }
 
-   // public virtual Product Product { get; set; } = null!;
+    public virtual Product Product { get; set; } = null!;
 }

@@ -16,6 +16,7 @@ namespace ECommerce.Infrastructure.Repos
         {
             this.context = context;
             products = context.Set<Product>();
+            
         }
 
         // دي عمليات بتتم على الذاكرة المؤقته مش لازم تشتغل async
@@ -60,21 +61,17 @@ namespace ECommerce.Infrastructure.Repos
             return await context.SaveChangesAsync();
 
         }
-
         public async Task<IEnumerable<Product>> GetProductsByCatID(int catID)
         {
             return await products.Include(p => p.Images).Include(P => P.Category).Include(P => P.Reviews).Where(p => p.CategoryId == catID).ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByCatname(string catname)
+
+
+        public async Task<IEnumerable<Product>> GetProductsByCatName(string catname)
         {
             return await products.Include(p => p.Images).Include(p => p.Category).Include(P => P.Reviews).Where(p => p.Category.Name == catname).ToListAsync();
-        }
-
-        public async Task<IEnumerable<Product>> GetProductsByCatName(string catName)
-        {
-            return await products.Include(p => p.Images).Include(P => P.Category).Include(P => P.Reviews).Where(p => p.Category.Name.ToLower() == catName.ToLower()).ToListAsync();
-        }
+        }        
 
         public async Task<string> AddwithID(Product entity)
         {
@@ -157,6 +154,7 @@ namespace ECommerce.Infrastructure.Repos
             return context.Categories.AnyAsync(c => c.Name == name);
         }
 
+     
     }
 
 }

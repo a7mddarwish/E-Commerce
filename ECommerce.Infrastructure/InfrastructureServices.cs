@@ -44,8 +44,10 @@ namespace ECommerce.Infrastructure
 
         private static IServiceCollection RegDbcontextRepo(this IServiceCollection service, IConfiguration config)
         {
+            string connstr = config.GetConnectionString("connstr");
+
             service.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(config.GetConnectionString("connstr"))
+            options.UseSqlServer(connstr)
             );
 
             return service;

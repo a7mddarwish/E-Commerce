@@ -100,7 +100,7 @@ namespace ECommerce.Core.Services
             if(string.IsNullOrEmpty(catName))
                 return null;
 
-            var products = await repo.GetProductsByCatname(catName);
+            var products = await repo.GetProductsByCatName(catName);
 
             if(products == null)
                 return null;
