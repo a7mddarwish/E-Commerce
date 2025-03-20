@@ -64,8 +64,6 @@ namespace ECommerce.UI.Controllers
             if (userID == null)
                 return Unauthorized(new { message = "Invalid user" });
 
-            if (userID == null)
-                return Unauthorized(new { message = "Invalid user" });
             var review = await reviewsService.UserReview(userID, ProductID);
             if (review == null)
                 return NotFound(new { message = "No review found" });

@@ -41,6 +41,8 @@ namespace ECommerce.Infrastructure.Repos
 
         public void Update(Cart entity)
         {
+            
+
             carts.Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
             
@@ -48,8 +50,7 @@ namespace ECommerce.Infrastructure.Repos
 
         public Task<Cart> FindByIdAsync(string id)
         {
-
-            return carts.Include(c => c.ProductsInCarts).FirstOrDefaultAsync(c => c.Id == id);
+           return carts.Include(c => c.ProductsInCarts).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<Cart>> FindAsync(Expression<Func<Cart, bool>> predicate)
@@ -64,7 +65,12 @@ namespace ECommerce.Infrastructure.Repos
 
         public async Task<Cart> GetCurrnetCart(string userid)
         {
-            return await carts.Include(c => c.ProductsInCarts).ThenInclude(p => p.Product).ThenInclude(p => p.Category).FirstOrDefaultAsync(c => c.UserId.ToString() == userid);
+            return await carts
+                .AsSplitQuery()
+                .Include(c => c.ProductsInCarts).
+                ThenInclude(p => p.Product).
+                ThenInclude(p => p.Category).
+                FirstOrDefaultAsync(c => c.UserId.ToString() == userid);
         }
 
         public void AddProductinCart(ProductsInCart product)
@@ -83,7 +89,12 @@ namespace ECommerce.Infrastructure.Repos
 
         public async Task<ProductsInCart> GetProductsInCart(string ProductId)
         {
-            return await context.ProductsInCart.Include(p => p.Product).ThenInclude(p => p.Category).FirstOrDefaultAsync(p =>  p.ProductId == ProductId);
+            return await context
+                .ProductsInCart
+                .AsSplitQuery()
+                .Include(p => p.Product).
+                ThenInclude(p => p.Category).
+                FirstOrDefaultAsync(p =>  p.ProductId == ProductId);
         }
     }
 }

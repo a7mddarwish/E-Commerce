@@ -24,6 +24,7 @@ namespace ECommerce.Core
             service.RegCartService();
             service.RegStockService();
             service.RegReviewServices();
+            service.RegWishListServices();
 
             return service;
         }
@@ -52,6 +53,11 @@ namespace ECommerce.Core
         private static IServiceCollection RegCategoriesServices(this IServiceCollection service)
         {
             return service.AddScoped<ICategoriesServices, CategoriesServices>();
+        }
+        
+        private static IServiceCollection RegWishListServices(this IServiceCollection service)
+        {
+            return service.AddScoped<IWishListService, WishListService>();
         }
         private static IServiceCollection RegEmailsender(this IServiceCollection service)
         {

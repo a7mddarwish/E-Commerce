@@ -18,7 +18,7 @@ namespace ECommerce.Core.DTOs
         public string categoryName { get; set; }
         public short availInStock { get; set; }
         public decimal Price { get; set; }
-        public ReviewDTO Reviewsinfo { get; set; }
+        public AvgReviewsDTO Reviewsinfo { get; set; }
 
 
         public ICollection<Image> Images { get; set; }

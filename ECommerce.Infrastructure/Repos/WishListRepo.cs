@@ -40,9 +40,27 @@ namespace ECommerce.Infrastructure.Repos
 
         }
 
-        public Task<WishList> GetWishListByUserId(string userID)
+        public async Task<WishList> GetWishListByUserId(Guid userID)
         {
-            return wishListSet.Include(w => w.ProductsInWishLists).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+               return await wishListSet
+                .AsSplitQuery()
+                .Include(w => w.ProductsInWishLists)
+                .ThenInclude(p => p.Product)
+                .FirstOrDefaultAsync(u => u.UserId == userID);
+
+            
+
+        }
+
+        public WishList GenerateWishlist(Guid userid)
+        {
+            WishList wsh = new WishList { 
+            UserId = userid
+            };
+
+            context.Entry(wsh).State = EntityState.Added;
+
+            return wsh;
         }
 
         public async Task<int> SaveChangesAsync()
@@ -52,8 +70,13 @@ namespace ECommerce.Infrastructure.Repos
 
         public void Update(WishList entity)
         {
+            EntityState state = context.Entry(entity).State;
+
             wishListSet.Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
+
+            EntityState state2 = context.Entry(entity).State;
+
         }
     }
 }

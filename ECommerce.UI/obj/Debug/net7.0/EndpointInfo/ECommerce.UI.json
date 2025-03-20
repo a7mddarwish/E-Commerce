@@ -912,8 +912,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success"
+          "201": {
+            "description": "Created"
           },
           "500": {
             "description": "Server Error"
@@ -966,6 +966,7 @@
         "tags": [
           "Product"
         ],
+        "operationId": "FindProduct",
         "parameters": [
           {
             "name": "productId",
@@ -1089,14 +1090,14 @@
         }
       }
     },
-    "/api/Produts/{name}": {
+    "/api/Produts/{Categoryname}": {
       "get": {
         "tags": [
           "Product"
         ],
         "parameters": [
           {
-            "name": "name",
+            "name": "Categoryname",
             "in": "path",
             "required": true,
             "style": "simple",
@@ -1674,6 +1675,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server Error"
           },
           "404": {
             "description": "Not Found",

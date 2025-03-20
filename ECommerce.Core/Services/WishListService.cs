@@ -25,14 +25,16 @@ namespace ECommerce.Core.Services
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetWishListProducts(string userID)
+        public async Task<IEnumerable<ProductDTO>> GetWishListProducts(string userId)
         {
-            if (string.IsNullOrEmpty(userID)) 
-            return Enumerable.Empty<ProductDTO>();
+            Guid.TryParse(userId, out Guid id);
 
-            WishList wishList = await wshRepo.GetWishListByUserId(userID);
+            if (id == Guid.Empty)
+                return null;
 
-           return  mapper.Map<IEnumerable<ProductDTO>>(wishList.ProductsInWishLists.Select(p => p.Product));
+            WishList wishList = await wshRepo.GetWishListByUserId(id);
+
+           return (wishList != null) ? mapper.Map<IEnumerable<ProductDTO>>(wishList.ProductsInWishLists.Select(p => p.Product)) : null;
         }
 
         public async Task<bool> IsProductInWishList(string userId, string ProductID)
@@ -40,9 +42,14 @@ namespace ECommerce.Core.Services
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(ProductID))
                 return false;
 
-            WishList userWishList = await wshRepo.GetWishListByUserId(userId);
+            Guid.TryParse(userId, out Guid id);
 
-            if (userWishList == null ||! userWishList.ProductsInWishLists.Any(p => p.Id == ProductID))
+            if (id == Guid.Empty)
+                return false;
+
+            WishList userWishList = await wshRepo.GetWishListByUserId(id);
+
+            if (userWishList == null ||! userWishList.ProductsInWishLists.Any(P => P.ProductId == ProductID))
                 return false;
 
             return true;
@@ -54,12 +61,16 @@ namespace ECommerce.Core.Services
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(ProductID))
                 return false;
 
-            WishList userWishList = await wshRepo.GetWishListByUserId(userId);
+            Guid.TryParse(userId, out Guid id);
+
+            if (id == Guid.Empty)
+                return false;
+            WishList userWishList = await wshRepo.GetWishListByUserId(id);
 
             if (userWishList == null)
                 return false;
 
-            if (! userWishList.ProductsInWishLists.Any(p => p.Id == ProductID))
+            if (! userWishList.ProductsInWishLists.Any(p => p.ProductId == ProductID))
                 return false;
 
             ProductsInWishList? ProductToRemove = userWishList.ProductsInWishLists.FirstOrDefault(p => p.ProductId == ProductID);
@@ -76,17 +87,20 @@ namespace ECommerce.Core.Services
 
         public async Task<bool> AddToWishList(string userId, string productId)
         {
-            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(productId))
+            Guid.TryParse(userId , out Guid id);
+
+            if(id == Guid.Empty)
                 return false;
 
-            var userWishList = await wshRepo.GetWishListByUserId(userId);
+            WishList userWishList = await wshRepo.GetWishListByUserId(id);
 
-            if (userWishList == null)
-                userWishList = new WishList { UserId =Guid.Parse(userId)};
+           if(userWishList == null) userWishList = wshRepo.GenerateWishlist(id);
+
+           else
+           if (userWishList.ProductsInWishLists.Any(p => p.ProductId == productId))
+                 return false;
             
-
-            if (userWishList.ProductsInWishLists.Any(p => p.ProductId == productId))
-                return false;
+             
 
             userWishList.ProductsInWishLists.Add(new ProductsInWishList
             {
@@ -94,7 +108,8 @@ namespace ECommerce.Core.Services
                 WishListId = userWishList.Id
             });
 
-            wshRepo.Update(userWishList);
+            
+
 
             return await wshRepo.SaveChangesAsync() > 0;
         }

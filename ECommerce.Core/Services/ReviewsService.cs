@@ -35,9 +35,9 @@ namespace ECommerce.Core.Services
             return (await reviewsRepo.SaveChangesAsync()) > 0;
         }
 
-        public async Task<ReviewDTO> Reviewsinfo(string ProductID)
+        public async Task<AvgReviewsDTO> Reviewsinfo(string ProductID)
         {
-            return new ReviewDTO { avgStars =await reviewsRepo.AvrgStarsProduct(ProductID), ReviewsNum =await reviewsRepo.ReviewsNum(ProductID) };
+            return new AvgReviewsDTO { avgStars =await reviewsRepo.AvrgStarsProduct(ProductID), ReviewsNum =await reviewsRepo.ReviewsNum(ProductID) };
 
         }
 
@@ -53,7 +53,7 @@ namespace ECommerce.Core.Services
 
         }
 
-        public async Task<ReviewDTO> UserReview(Guid userID, string ProductID)
+        public async Task<UserReviewDTO> UserReview(Guid userID, string ProductID)
         {
             if(userID == null || string.IsNullOrEmpty(ProductID))
                 return null;
@@ -62,7 +62,7 @@ namespace ECommerce.Core.Services
             if(userReview == null)            
                 return null;
 
-            return mapper.Map<ReviewDTO>(userReview);
+            return mapper.Map<UserReviewDTO>(userReview);
 
         }
     }

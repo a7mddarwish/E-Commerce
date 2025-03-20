@@ -24,7 +24,6 @@ namespace ECommerce.UI.Controllers
         private readonly IEmailSender emailsender;
         private readonly IMapper mapper;
 
-        public static string[] roles = new string[] { "Admin", "Customer" };
         public AccountController(UserManager<AppUser> usermanager, IConfiguration config, IEmailSender emailsender, IMapper mapper)
         {
             this.usermanager = usermanager;

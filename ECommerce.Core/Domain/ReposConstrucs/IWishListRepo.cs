@@ -11,6 +11,8 @@ namespace ECommerce.Core.Domain.ReposConstrucs
 {
     public interface IWishListRepo : IGenericRepo<WishList>
     {
-        public Task<WishList> GetWishListByUserId(string userID);
+        public Task<WishList> GetWishListByUserId(Guid userID);
+        public WishList GenerateWishlist(Guid userid);
+
     }
 }

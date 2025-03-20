@@ -40,7 +40,7 @@ namespace ECommerce.UI.Controllers
         [HttpPost]
         [Route("Add")]
         [Consumes("multipart/form-data")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -55,7 +55,7 @@ namespace ECommerce.UI.Controllers
                 return BadRequest(ModelState);
 
 
-            if (await productsServ.IsCategoryExixst(product.categoryId))
+            if (!await productsServ.IsCategoryExixst(product.categoryId))
                 return BadRequest(new { message = "Category not found." });
 
 
@@ -68,8 +68,8 @@ namespace ECommerce.UI.Controllers
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add product.");
                 }
-
-                return CreatedAtAction("FindProduct", newProd.Id);
+                Guid.TryParse(newProd.Id, out Guid prodId);
+                return Created("FindProduct" , new { productId = prodId });
 
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace ECommerce.UI.Controllers
         }
 
         [HttpGet]
-        [Route("Prod/{productId}")]
+        [Route("Prod/{productId}" , Name = "FindProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -118,16 +118,16 @@ namespace ECommerce.UI.Controllers
             return Ok(products);
         }
         
-        [HttpGet("{name}")]
+        [HttpGet("{Categoryname}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProductsByCategoryName(string name)
+        public async Task<IActionResult> GetProductsByCategoryName(string Categoryname)
         {
-            if(string.IsNullOrEmpty(name))
+            if(string.IsNullOrEmpty(Categoryname))
                 return BadRequest(new { message = "Enter valied category name" });
 
-            var products = await productsServ.GetByCategoryname(name);
+            var products = await productsServ.GetByCategoryname(Categoryname);
 
 
             if (products == null || products.Count == 0)

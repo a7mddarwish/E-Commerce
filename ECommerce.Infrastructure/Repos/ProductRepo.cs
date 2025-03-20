@@ -27,6 +27,7 @@ namespace ECommerce.Infrastructure.Repos
 
         public void Update(Product entity)
         {
+
             products.Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
 
@@ -44,12 +45,16 @@ namespace ECommerce.Infrastructure.Repos
 
         public async Task<IEnumerable<Product>> FindAsync(Expression<Func<Product, bool>> predicate)
         {
-            return await products.Include(p => p.Images).Include(P => P.Reviews).Where(predicate).ToListAsync();
+            return await products.AsSplitQuery()
+                .Include(p => p.Images)
+                .Include(P => P.Reviews)
+                .Where(predicate).ToListAsync();
+              
         }
 
         public async Task<Product> FindByIdAsync(Guid id)
         {
-            return await products.
+            return await products.AsSplitQuery().
                  Include(p => p.Images).
                  Include(P => P.Reviews)
                  .Include(P => P.Category).
@@ -63,14 +68,19 @@ namespace ECommerce.Infrastructure.Repos
         }
         public async Task<IEnumerable<Product>> GetProductsByCatID(int catID)
         {
-            return await products.Include(p => p.Images).Include(P => P.Category).Include(P => P.Reviews).Where(p => p.CategoryId == catID).ToListAsync();
+            return await products
+                .AsSplitQuery()
+                .Include(p => p.Images)
+                .Include(P => P.Category)
+                .Include(P => P.Reviews)
+                .Where(p => p.CategoryId == catID).ToListAsync();
         }
 
 
 
         public async Task<IEnumerable<Product>> GetProductsByCatName(string catname)
         {
-            return await products.Include(p => p.Images).Include(p => p.Category).Include(P => P.Reviews).Where(p => p.Category.Name == catname).ToListAsync();
+            return await products.AsSplitQuery().Include(p => p.Images).Include(p => p.Category).Include(P => P.Reviews).Where(p => p.Category.Name == catname).ToListAsync();
         }        
 
         public async Task<string> AddwithID(Product entity)
@@ -85,24 +95,15 @@ namespace ECommerce.Infrastructure.Repos
             List<Product> RandProducts = new List<Product>();
             Random random = new Random();
 
-            // change this to get all products with their images and reviews
-
-            var categories = await context.Categories
-                .Include(c => c.Products)
-                    .ThenInclude(p => p.Images)
-                 .Include(c => c.Products)
-                    .ThenInclude(p => p.Reviews)
-                 .Include(c => c.Products)
-                    .ThenInclude(p => p.Category)
-
-                .ToListAsync();
-
-            foreach (var Cat in categories)
+           
+            var categoriesids = await context.Categories.AsNoTracking().Select(c => c.Id).ToListAsync();
+            foreach (var Catid in categoriesids)
             {
 
-                var Products = Cat.Products.ToList();
+                var Products = await context.Products.Where(p => p.CategoryId == Catid).ToListAsync();
+                
                 if (Products.Count > 0)
-                    RandProducts.Add(Products[random.Next(0, Cat.Products.Count() - 1)]);
+                    RandProducts.Add(Products[random.Next(0, Products.Count() - 1)]);
 
 
             }
@@ -113,35 +114,42 @@ namespace ECommerce.Infrastructure.Repos
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return await products.Include(p => p.Images).Include(P => P.Category).Include(P => P.Reviews).ToListAsync();
+            return await products
+                .AsSplitQuery()
+                .Include(p => p.Images)
+                .Include(P => P.Category)
+                .Include(P => P.Reviews).ToListAsync();
         }
 
 
         public async Task<IEnumerable<Product>> JustForYou(Guid userId)
         {
-            var categoriesInCart = await context.Carts
+            var categorieIDsInCart = await context.Carts
                 .Where(c => c.UserId == userId)
-                .SelectMany(c => c.ProductsInCarts.Select(p => p.Product.Category))
+                .SelectMany(c => c.ProductsInCarts.Select(p => p.Product.Category.Id))
                 .Distinct()
                 .ToListAsync();
 
-            var categoriesInWishlist = await context.WishLists
+            var categorieIDsInWishlist = await context.WishLists
                 .Where(w => w.UserId == userId)
-                .SelectMany(w => w.ProductsInWishLists.Select(p => p.Product.Category))
+                .SelectMany(w => w.ProductsInWishLists.Select(p => p.Product.Category.Id))
                 .Distinct()
                 .ToListAsync();
 
-            var allCategories = categoriesInCart.Concat(categoriesInWishlist).Distinct().ToList();
+            var allCategoriesIDs = categorieIDsInCart.Concat(categorieIDsInWishlist).Distinct().ToList();
 
-            if (!allCategories.Any())
+            if (!allCategoriesIDs.Any())
                 return await ExploreProducts();
 
             var random = new Random();
-            var recommendedProducts = allCategories
-                .Select(category => category.Products.OrderBy(p => random.Next()).FirstOrDefault())
-                .Where(product => product != null)
-                .ToList();
 
+            List<Product> recommendedProducts = new List<Product>();
+            foreach (int catid in allCategoriesIDs)
+            {
+                var Prodcutsincat = products.Where(p => p.CategoryId == catid).ToList();
+                recommendedProducts.Add( Prodcutsincat[random.Next(0 , Prodcutsincat.Count-1)]);
+
+            }
             return recommendedProducts;
         }
         public Task<bool> IsCategoryExist(int id)

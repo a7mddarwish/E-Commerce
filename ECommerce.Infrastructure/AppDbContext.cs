@@ -43,6 +43,9 @@ public partial class AppDbContext : IdentityDbContext<AppUser , AppRoles , Guid>
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Product>()
+            .Navigation(p => p.Images)
+            .AutoInclude();
     }
 
 

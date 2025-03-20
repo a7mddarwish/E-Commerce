@@ -23,7 +23,7 @@ namespace ECommerce.Core.Helpers
                 .ForMember(dest => dest.categoryId, opt => opt.MapFrom(src => src.CategoryId))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.ToList()))
                 .ForMember(dest => dest.categoryName, opt => opt.MapFrom(src => src.Category.Name))                
-                .ForMember(dest => dest.Reviewsinfo, opt => opt.MapFrom(src => new ReviewDTO
+                .ForMember(dest => dest.Reviewsinfo, opt => opt.MapFrom(src => new AvgReviewsDTO
                 {
                     ProductID = src.Id,
                     avgStars = (src.Reviews != null && src.Reviews.Any()) ? src.Reviews.Average(r => r.Stars) : 0,
@@ -35,7 +35,8 @@ namespace ECommerce.Core.Helpers
             CreateMap<AppUser, userDTO>();
 
             CreateMap<Category, CategoryDTO>();
-            CreateMap<Review, ReviewDTO>();
+            CreateMap<Review, AvgReviewsDTO>();
+            CreateMap<Review, UserReviewDTO>();
         }
 
     }

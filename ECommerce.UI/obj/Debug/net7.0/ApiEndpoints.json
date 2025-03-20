@@ -525,13 +525,13 @@
   {
     "ContainingType": "ECommerce.UI.Controllers.ProductController",
     "Method": "GetProductsByCategoryName",
-    "RelativePath": "api/Produts/{name}",
+    "RelativePath": "api/Produts/{Categoryname}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "name",
+        "Name": "Categoryname",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -605,7 +605,7 @@
       {
         "Type": "System.Void",
         "MediaTypes": [],
-        "StatusCode": 200
+        "StatusCode": 201
       },
       {
         "Type": "System.Void",
@@ -794,7 +794,8 @@
         ],
         "StatusCode": 404
       }
-    ]
+    ],
+    "EndpointName": "FindProduct"
   },
   {
     "ContainingType": "ECommerce.UI.Controllers.ReviewsController",
@@ -998,6 +999,11 @@
           "text/json"
         ],
         "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
       },
       {
         "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
