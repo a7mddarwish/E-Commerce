@@ -69,7 +69,7 @@ namespace ECommerce.UI.Controllers
             var confirmationLink = Url.Action("ConfirmEmail", "Account",
                 new { UserEmail = user.Email, Token = token }, protocol: HttpContext.Request.Scheme);
 
-            await emailsender.SendConfirmationEmail(user.Email, user, token, confirmationLink);
+            await emailsender.SendVarificationEmail(user.Email, user, token, confirmationLink);
 
 
             return Ok(new { message = "Please Check email now" });
@@ -141,25 +141,20 @@ namespace ECommerce.UI.Controllers
         {
             if (string.IsNullOrEmpty(userEmail) || string.IsNullOrEmpty(Token))
             {
-                // Provide a descriptive error message for the view
                 return BadRequest(new { message = "Email not confirmed" });
 
             }
-            //Find the User by Email
             var user = await usermanager.FindByEmailAsync(userEmail);
             if (user == null)
             {
-                // Provide a descriptive error for a missing user scenario
                 return BadRequest(new { message = "We could not find a user associated with the given link." });
             }
-            // Attempt to confirm the email
             var result = await usermanager.ConfirmEmailAsync(user, Token);
             if (result.Succeeded)
             {
                 return Ok(new { message = "Thank you for confirming your email address. Your account is now verified!" });
 
             }
-            // If confirmation fails
             return BadRequest(new { message = "We were unable to confirm your email address. Please try again or request a new link." });
 
         }
@@ -182,7 +177,7 @@ namespace ECommerce.UI.Controllers
             var confirmationLink = Url.Action("ConfirmEmail", "Account",
                 new { UserEmail = user.Email, Token = token }, protocol: HttpContext.Request.Scheme);
 
-            await emailsender.SendConfirmationEmail(user.Email, user, token, confirmationLink);
+            await emailsender.SendVarificationEmail(user.Email, user, token, confirmationLink);
 
 
             return Ok(new { message = "Check email again" });
@@ -223,18 +218,18 @@ namespace ECommerce.UI.Controllers
                 return BadRequest(new { message = "Enter valied info" });
             string? IDClaim = User.FindFirst(c => c.Type == "UserID")?.Value;
 
-            if(string.IsNullOrEmpty(IDClaim))
+            if (string.IsNullOrEmpty(IDClaim))
                 return Unauthorized(new { message = "User Not Found" });
 
             AppUser user = await usermanager.FindByIdAsync(IDClaim);
 
-            if (!await usermanager.CheckPasswordAsync(user , userinfodto.passwordToConfirm))
+            if (!await usermanager.CheckPasswordAsync(user, userinfodto.passwordToConfirm))
                 return BadRequest(new { message = "Password was wrong , Please check again or reset the password" });
 
 
-            if (user == null)            
-                return StatusCode(500 , new {message = "Internal server error." });
-            
+            if (user == null)
+                return StatusCode(500, new { message = "Internal server error." });
+
 
             user.FullName = userinfodto.FullName;
             user.Address = userinfodto.Address;
@@ -251,16 +246,16 @@ namespace ECommerce.UI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ChangeEmail(string email , string passwordToConfirm)
+        public async Task<IActionResult> ChangeEmail(string email, string passwordToConfirm)
         {
             string userId = User.FindFirst("UserID")?.Value;
-            if (string.IsNullOrEmpty(userId)) 
-               return Unauthorized(new {message = "User Not found"});
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized(new { message = "User Not found" });
 
             AppUser user = await usermanager.FindByIdAsync(userId);
 
             if (user == null)
-                return NotFound(new {message = "User dosenot exist"});
+                return NotFound(new { message = "User dosenot exist" });
 
 
             if (!await usermanager.CheckPasswordAsync(user, passwordToConfirm))
@@ -270,7 +265,7 @@ namespace ECommerce.UI.Controllers
             user.NormalizedEmail = email.ToUpper();
 
             user.UserName = email;
-            user.NormalizedUserName= email.ToUpper();
+            user.NormalizedUserName = email.ToUpper();
 
 
 
@@ -283,27 +278,27 @@ namespace ECommerce.UI.Controllers
 
 
         [Authorize]
-        [HttpPatch("ChangePassword")]
+        [HttpPost("ChangePassword")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ChangePassword(string oldpass , string NewPass , string confirmednewpass)
+        public async Task<IActionResult> ChangePassword(string oldpass, string NewPass, string confirmednewpass)
         {
             if (string.IsNullOrEmpty(oldpass) || string.IsNullOrEmpty(NewPass) || string.IsNullOrEmpty(confirmednewpass))
-                return BadRequest(new {message = "All filds is required"});
+                return BadRequest(new { message = "All filds is required" });
 
             if (NewPass != confirmednewpass)
-                return BadRequest(new {message = "Enter same password in the two filds"});
+                return BadRequest(new { message = "Enter same password in the two filds" });
 
             string userid = User.FindFirst("UserID")?.Value;
             if (string.IsNullOrEmpty(userid))
-                return Unauthorized(new {message = "User not found"});
+                return Unauthorized(new { message = "User not found" });
 
             AppUser user = await usermanager.FindByIdAsync(userid);
 
             if (user == null)
-                return NotFound(new {message = "User dosenot exist!"});
+                return NotFound(new { message = "User dosenot exist!" });
 
             IdentityResult result = await usermanager.ChangePasswordAsync(user, oldpass, NewPass);
 
@@ -312,7 +307,51 @@ namespace ECommerce.UI.Controllers
 
 
             return Ok("Password changed successfully");
-            
+
+        }
+
+        [HttpGet("ForgetPassword")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ForgetPassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return BadRequest(new { message = "Enter valid emial" });
+
+            AppUser user = await usermanager.FindByEmailAsync(email);
+            if (user == null)
+                return NotFound(new { message = "this email does not related to any user , Register now!" });
+
+            string _token = await usermanager.GeneratePasswordResetTokenAsync(user);
+
+            string redirectionurl = $"http://localhost:3000/ForgetPassword?token={_token}";
+
+            await emailsender.SendResetPasswoedEmail(email, user, _token, redirectionurl);
+
+            return Ok(new { message = "Check email" });
+
+        }
+
+        [HttpPut("SetNewPassword", Name = "SetNewPassword")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> SetNewPassword(ReSetPasswordDTO inputs)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new { message = "All fields is required , try again!" }); }
+
+            if (!inputs.NewPassword.Equals(inputs.ConfirmNewPassword))
+                return BadRequest(new { message = "password and confirm password does not same"} );
+
+            AppUser user = await usermanager.FindByEmailAsync(inputs.Email);
+            if (user == null)
+                return NotFound(new {message = $"User with Email:{inputs.Email} does not exist. Register Now!"});
+          IdentityResult result = await usermanager.ResetPasswordAsync(user , inputs.Token , inputs.ConfirmNewPassword);
+
+            if (result.Succeeded)
+                return Ok("Password changed succesfully");
+
+            return StatusCode(500, new { message = "some thing went wrong while change password" });
         }
     }
 }

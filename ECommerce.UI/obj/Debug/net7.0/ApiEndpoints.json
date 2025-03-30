@@ -48,7 +48,7 @@
     "ContainingType": "ECommerce.UI.Controllers.AccountController",
     "Method": "ChangePassword",
     "RelativePath": "api/Account/ChangePassword",
-    "HttpMethod": "PATCH",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -182,6 +182,32 @@
   },
   {
     "ContainingType": "ECommerce.UI.Controllers.AccountController",
+    "Method": "ForgetPassword",
+    "RelativePath": "api/Account/ForgetPassword",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "ECommerce.UI.Controllers.AccountController",
     "Method": "Login",
     "RelativePath": "api/Account/Login",
     "HttpMethod": "POST",
@@ -272,6 +298,52 @@
         "StatusCode": 400
       }
     ]
+  },
+  {
+    "ContainingType": "ECommerce.UI.Controllers.AccountController",
+    "Method": "SetNewPassword",
+    "RelativePath": "api/Account/SetNewPassword",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "inputs",
+        "Type": "ECommerce.Core.DTOs.ReSetPasswordDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ],
+    "EndpointName": "SetNewPassword"
   },
   {
     "ContainingType": "ECommerce.UI.Controllers.AccountController",

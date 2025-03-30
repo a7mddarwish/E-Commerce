@@ -11,7 +11,8 @@ namespace ECommerce.Core.ServicesConstracts.Email
     public interface IEmailSender
     {
         public Task EmailFromContactUs(ContactUsDTO contactus);
-        public Task SendConfirmationEmail(string email, AppUser user, string? token, string confirmationLink);
-
+        public Task SendConfirmationEmail(string email, AppUser user, string? token, string confirmationLink , string message);
+        public Task SendVarificationEmail(string email, AppUser user, string? token, string confirmationLink);
+        public Task SendResetPasswoedEmail(string email, AppUser user, string? token, string confirmationLink);
     }
 }
