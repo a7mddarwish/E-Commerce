@@ -106,3 +106,5 @@ D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\ECommerce.UI.staticwebass
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.build.endpoints.json
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets\msbuild.ECommerce.UI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
 D:\Programming\ECommerce\ECommerce.UI\obj\Debug\net7.0\staticwebassets.upToDateCheck.txt
+D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\Microsoft.Bcl.Memory.dll
+D:\Programming\ECommerce\ECommerce.UI\bin\Debug\net7.0\Microsoft.Bcl.TimeProvider.dll

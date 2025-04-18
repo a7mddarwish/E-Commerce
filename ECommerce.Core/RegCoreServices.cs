@@ -25,13 +25,18 @@ namespace ECommerce.Core
             service.RegStockService();
             service.RegReviewServices();
             service.RegWishListServices();
-
+            service.RegTokenProviderService();
             return service;
         }
 
         private static IServiceCollection RegAutomapperService(this IServiceCollection service)
         {
             service.AddAutoMapper(typeof(RegCoreServices));
+            return service;
+        }
+        private static IServiceCollection RegTokenProviderService(this IServiceCollection service)
+        {
+            service.AddTransient<ITokenProvider, TokenProvider>();
             return service;
         }
         private static IServiceCollection RegProductService(this IServiceCollection service)

@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using ECommerce.Core.ServicesConstracts.Email;
+using ECommerce.Core.ServicesConstracts;
 
 namespace ECommerce.UI.Controllers
 {
@@ -23,13 +24,16 @@ namespace ECommerce.UI.Controllers
         private readonly IConfiguration config;
         private readonly IEmailSender emailsender;
         private readonly IMapper mapper;
+        private readonly ITokenProvider _tokenProvider;
 
-        public AccountController(UserManager<AppUser> usermanager, IConfiguration config, IEmailSender emailsender, IMapper mapper)
+        public AccountController(UserManager<AppUser> usermanager, IConfiguration config, IEmailSender emailsender, 
+            IMapper mapper , ITokenProvider tokenProvider)
         {
             this.usermanager = usermanager;
             this.config = config;
             this.emailsender = emailsender;
             this.mapper = mapper;
+            this._tokenProvider = tokenProvider;
         }
 
 
@@ -96,41 +100,8 @@ namespace ECommerce.UI.Controllers
 
 
 
-            return Ok(new { token = await GenerateToken(actuser) });
+            return Ok(_tokenProvider.GenerateJWTToken(actuser , await usermanager.GetRolesAsync(actuser)));
 
-        }
-
-        private async Task<string> GenerateToken(AppUser actuser)
-        {
-
-            // Generate JWT Token
-            var secritKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                config["securitymodule:SecretKey"]));
-
-            var Roles = await usermanager.GetRolesAsync(actuser);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                // this will be stored in payload
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    // Add here role like admin 
-                    new Claim("userEmail" , actuser.Email),
-                    new Claim("UserID" , actuser.Id.ToString()),
-                    new Claim("Address" , actuser.Address),
-                    new Claim(ClaimTypes.Role , Roles.First()),
-                    new Claim("How are you?" , Guid.NewGuid().ToString())
-                }),
-                Issuer = config["securitymodule:Issuer"],
-                Expires = DateTime.UtcNow.AddHours(int.Parse(config["securitymodule:LifeTimeInHours"]!)),
-
-                SigningCredentials = new SigningCredentials(secritKey, SecurityAlgorithms.HmacSha256),
-
-
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
         }
 
 
@@ -353,5 +324,7 @@ namespace ECommerce.UI.Controllers
 
             return StatusCode(500, new { message = "some thing went wrong while change password" });
         }
+
+
     }
 }
