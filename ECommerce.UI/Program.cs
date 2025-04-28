@@ -17,7 +17,6 @@ namespace ECommerce.UI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
              {
@@ -56,25 +55,19 @@ namespace ECommerce.UI
                 });
             });
 
-            // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             builder.Services.InfrastructureService(builder.Configuration);
             builder.Services.configCoreService();
 
-            // config identity service
             builder.Services.AddIdentity<AppUser, AppRoles>()
                                .AddEntityFrameworkStores<AppDbContext>()
-                               //To add user store we need to add user store as a repository
                                .AddUserStore<UserStore<AppUser, AppRoles, AppDbContext, Guid>>()
-                               //To send email confirmation or any OTP code to the user we need to add token provider
-                               .AddDefaultTokenProviders();//.AddRoles<>(AppRoles);
+                               .AddDefaultTokenProviders();
 
-            // change default behavure of Identity system
             builder.Services.Configure<IdentityOptions>(options =>
             {
               
@@ -135,7 +128,6 @@ namespace ECommerce.UI
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
          //   if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

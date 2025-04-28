@@ -19,7 +19,7 @@ namespace ECommerce.Core.Services
             _configuration = config;
         }
 
-        public siginedinwithtokenDTO GenerateJWTToken(AppUser actuser , IList<string>Roles)
+        public siginedinwithtokenDTO GenerateJWTToken(AppUser actuser, IList<string> Roles)
         {
 
             // Generate JWT Token
@@ -48,75 +48,10 @@ namespace ECommerce.Core.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-             
+
             return new siginedinwithtokenDTO { Token = tokenHandler.WriteToken(token), Email = actuser.Email, FullName = actuser.FullName };
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public siginedinwithtokenDTO GenerateJWTToken(AppUser user)
-        //{
-        //DateTime ExpireDate = DateTime.UtcNow.AddMinutes(
-        //    Convert.ToDouble(_configuration["JWT:TIME_INMINTUS"])
-        //    );
-
-        //Claim[] Claims = new Claim[]
-        //{
-        //        new Claim(JwtRegisteredClaimNames.Sub , user.Id.ToString()),
-        //        new Claim(JwtRegisteredClaimNames.Jti , Guid.NewGuid().ToString()),
-        //        new Claim(JwtRegisteredClaimNames.Iat ,DateTime.Now.ToString()),
-        //    //new Claim(ClaimTypes.Email , user.Email),
-        //    //new Claim(ClaimTypes.Name , user.FullName)
-        //};
-
-        //SymmetricSecurityKey securitykey = new SymmetricSecurityKey(
-        //    UTF8Encoding.UTF8.GetBytes(_configuration["JWT:KEY"])
-        //    );
-
-        //SigningCredentials signingCredentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
-
-        //JwtSecurityToken tokendescription = new JwtSecurityToken(issuer: _configuration["JWT:PUBLISHER"], audience: _configuration["JWT:AUDIENCE"]
-        //    , claims: Claims, expires: ExpireDate, signingCredentials: signingCredentials);
-
-        //JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-        //string Token = handler.WriteToken(tokendescription);
-
-        //return new siginedinwithtokenDTO { Token = Token, Email = user.Email, FullName = user.FullName };
-
 
 
     }
